@@ -4,12 +4,19 @@ import java.io.*;
 import java.net.*;
 
 public class server {
-  public static String question(Socket socket,String str) throws IOException{
-    PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-    writer.println(str+" : ");
-    writer.flush();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-    String line = reader.readLine();
+  public static String question(Socket socket,String query) throws IOException{
+    
+    PrintWriter soket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+    soket_writer.println(query+" : ");
+    soket_writer.flush();
+    /*
+      ここでクライアント側がqueryを受け取ってなんらかの処理をして
+      socket writeするまで待機する
+      クライアント側が送信したらそれを読んでサーバー側で処理再開
+    */
+    BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    String line = socket_reader.readLine();
+
     if(line.equals("end"))return null;
     return line;
   }
@@ -30,12 +37,12 @@ public class server {
       // 番号名前得点1,2,3,4をそれぞれ聞いてseiseki_strにくっつける
       for(String query:queries){
         /*
-        query(="Number","Name",...)を引数に渡すと
-        クライアント側にそれを送信する
-        それを受けたクライアント側の入力をreadLineでとってきて
-        それをreturnする
-        クライアント側で"end"が入力されたらnullを返す
-        nullが帰ってきたら全体をbreakしてプログラム終了。
+          query(="Number","Name",...)を引数に渡すと
+          クライアント側にそれを送信する
+          それを受けたクライアント側の入力をreadLineでとってきて
+          それをreturnする
+          クライアント側で"end"が入力されたらnullを返す
+          nullが帰ってきたら全体をbreakしてプログラム終了。
         */
         String data = question(socket, query);
         if(data==null)break ALL;
