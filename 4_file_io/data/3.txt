@@ -1,0 +1,12 @@
+Number	Name	Score1	Score2	Score3	Score4	Score5
+1	Michael	75	86	89	31	39
+2	Emma	74	63	70	�S8	88
+3	Hannah	73	45	82	31	26	26
+4	Emily	40	30	48	40
+5	Daniel	46	59	47	70	72
+6	Oliver	59	26	61	44	65
+7	Mia	74	64	62	
+8	James	86	61	51	78	60
+9	Charlotte	85	50	66	611	79
+10	Luna	52	72	�T7	56	85
+11	Mason	60	80	50	49	58

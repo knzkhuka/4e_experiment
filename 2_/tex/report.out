@@ -1,0 +1,13 @@
+%このファイルは日本語文字を含みます.
+\BOOKMARK [1][-]{section.1}{実験目的・課題}{}% 1
+\BOOKMARK [1][-]{section.2}{実装方法}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{方針}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{成績クラス}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{solve関数}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{結果と考察}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{ArrayListを使って名列番号順\(Number\)に表示}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Stackを使って名列番号の逆順に表示}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{HashMapを使って名前\(Name\)の昇順に表示}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{名前と平均点を表示}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.5}{平均点で昇順にソートして表示}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.6}{名前がEで始まる学生だけを表示}{section.3}% 12

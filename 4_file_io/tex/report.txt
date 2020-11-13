@@ -1,0 +1,14 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\usepackage{ascmac}
+\usepackage{url}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{float}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=cyan
+}
+

@@ -1,0 +1,14 @@
+%このファイルは日本語文字を含みます.
+\BOOKMARK [1][-]{section.1}{実験目的・課題}{}% 1
+\BOOKMARK [1][-]{section.2}{基礎知識}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{ファイル入力}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{例外処理}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{正規表現}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{実装方法}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{入力文字列の解析}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{教科ごとの平均点の算出}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{成績クラスの継承}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{結果と考察}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{4教科エラーなし}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{4教科エラーあり}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{5教科エラーあり}{section.4}% 13
