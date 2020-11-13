@@ -15,7 +15,6 @@ public class client {
       cout(query);
       PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
       String line = cin();
-      cout("post : "+line+"\n");
       writer.println(line);
       writer.flush();
       if(line.equals("end"))break;
