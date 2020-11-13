@@ -22,6 +22,7 @@ public class server {
     String[] queries = {"Number","  Name","Score1","Score2","Score3","Score4"};
     Pattern seiseki_ptn = Pattern.compile(":([0-9]+):([a-zA-Z]+):([0-9]+):([0-9]+):([0-9]+):([0-9]+)");
 
+    // 入力されたデータはこれに追加していく
     ArrayList<seiseki> datas = new ArrayList<>();
 
     ALL:while(true){
