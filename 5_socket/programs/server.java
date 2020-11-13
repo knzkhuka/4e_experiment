@@ -47,17 +47,22 @@ public class server {
       System.out.println(seiseki_str);
       
       Matcher seiseki_mc = seiseki_ptn.matcher(seiseki_str);
-      // 入力が積機表現にマッチしたら
       if(seiseki_mc.matches()){
+        // 入力が正規表現にマッチしたら
         System.out.println("macthed!");
 
         int number = Integer.parseInt(seiseki_mc.group(1));
         String name = seiseki_mc.group(2);
-        int[] scores = {Integer.parseInt(seiseki_mc.group(3)),Integer.parseInt(seiseki_mc.group(4)),Integer.parseInt(seiseki_mc.group(5)),Integer.parseInt(seiseki_mc.group(6))};
+        int[] scores = {
+          Integer.parseInt(seiseki_mc.group(3)),
+          Integer.parseInt(seiseki_mc.group(4)),
+          Integer.parseInt(seiseki_mc.group(5)),
+          Integer.parseInt(seiseki_mc.group(6))
+        };
         
         seiseki tmp = new seiseki(number,name,scores);
-        // seiseki.get_str()で全てのデータをタブ区切りにして連結したStringを得る
-        System.out.println("add : "+tmp.get_str());
+        // seiseki.get_all()で全てのデータを連結したStringを得る
+        System.out.println("add : "+tmp.get_all());
         datas.add(tmp);
       }else{
         System.out.println("invalid");
@@ -86,6 +91,15 @@ public class server {
       this.name = _name;
       this.scores = _scores;
       this.average = Arrays.stream(_scores).average().orElse(0);
+    }
+    public String get_all(){
+      String number_s = String.format("%3d",this.number);
+      String name_s = String.format("%10s",this.name);
+      String score_s = new String();
+      for(int s:this.scores)
+        score_s += String.format("%4d", s);
+      String average_s = String.format("%5.1f",this.average);
+      return number_s+name_s+score_s+average_s;
     }
     public String get_str(){
       String nums = String.valueOf(this.number);
