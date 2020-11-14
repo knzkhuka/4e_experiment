@@ -8,7 +8,7 @@ import java.net.Socket;
 public class client2 {
     public static void main(String[] args) throws IOException {
         String ip = "192.168.3.33";
-        int port = 1145;
+        int port = 10101;
         Socket socket = new Socket(ip, port);
         while (true) {
             BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
