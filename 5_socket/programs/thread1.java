@@ -1,12 +1,8 @@
 public class thread1 extends Thread {
+  private int cnt;
   public void run() {
-    try {
-      Thread.sleep(500);
-      for (int i = 0; i < 10; ++i) {
-        System.out.println(getName() + " : " + i);
-      }
-    } catch (InterruptedException err) {
-      err.printStackTrace();
-    }
+    System.out.println(getName()+" : "+cnt);
+    for(int i=0;i<10;++i)cnt+=i;
+    System.out.println(getName()+" : "+cnt);
   }
 }

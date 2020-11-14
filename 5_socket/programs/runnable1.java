@@ -1,6 +1,11 @@
 public class runnable1 implements Runnable {
+  private int cnt;
+
   public void run() {
-    String thread_name = Thread.currentThread().getName();
-    System.out.println(thread_name);
+    cnt += 3;
+  }
+
+  public int get_cnt() {
+    return this.cnt;
   }
 }
