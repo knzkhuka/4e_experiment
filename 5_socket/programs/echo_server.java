@@ -4,17 +4,23 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class echo_server {
   public static void main(String[] args) {
     int port = 10101;
     ServerSocket server = null;
+    List<String> log = Collections.synchronizedList(new ArrayList<>());
     try {
       server = new ServerSocket(port);
       System.out.println("start server on port " + server.getLocalPort());
       while (true) {
         Socket socket = server.accept();
-        new echo_thread(socket).start();
+        System.out.println("log:");
+        for(String str:log)System.out.println(str);
+        new Thread(new echo_thread(socket, log)).start();
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -29,11 +35,13 @@ public class echo_server {
   }
 }
 
-class echo_thread extends Thread {
+class echo_thread implements Runnable {
   private Socket socket;
+  private List<String> log;
 
-  echo_thread(Socket socket) {
+  echo_thread(Socket socket, List<String> log) {
     this.socket = socket;
+    this.log = log;
     System.out.println("connected : " + socket.getRemoteSocketAddress());
   }
 
@@ -43,6 +51,7 @@ class echo_thread extends Thread {
       PrintWriter writer = new PrintWriter(socket.getOutputStream());
       String line = new String();
       while ((line = reader.readLine()) != null) {
+        log.add(line);
         System.out.println(socket.getRemoteSocketAddress() + " receive " + line);
         writer.println(line);
         writer.flush();
