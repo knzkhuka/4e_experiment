@@ -7,19 +7,24 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class echo_server {
   public static void main(String[] args) {
     int port = 10101;
     ServerSocket server = null;
     List<String> log = Collections.synchronizedList(new ArrayList<>());
+    TreeMap<String, String> map = new TreeMap<>();
+    Map<String, String> amp = Collections.synchronizedSortedMap(map);
     try {
       server = new ServerSocket(port);
       System.out.println("start server on port " + server.getLocalPort());
       while (true) {
         Socket socket = server.accept();
         System.out.println("log:");
-        for(String str:log)System.out.println(str);
+        for (String str : log)
+          System.out.println(str);
         new Thread(new echo_thread(socket, log)).start();
       }
     } catch (IOException e) {
