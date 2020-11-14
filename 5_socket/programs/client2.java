@@ -28,7 +28,7 @@ public class client2 {
         while (!(line = socket_reader.readLine()).equals("endlist")) {
           System.out.println(line);
         }
-        socket_writer.println(line);
+        socket_writer.println("");
         socket_writer.flush();
       }
     }
