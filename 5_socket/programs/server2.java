@@ -12,7 +12,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +20,15 @@ public class server2 {
   public static String question(Socket socket, String query) throws IOException {
     PrintWriter soket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
     soket_writer.println(query + " : ");
+    soket_writer.flush();
+    BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    String line = socket_reader.readLine();
+    return line;
+  }
+
+  public static String message(Socket socket, String query) throws IOException {
+    PrintWriter soket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+    soket_writer.println(query + "  (enter to next)");
     soket_writer.flush();
     BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     String line = socket_reader.readLine();
@@ -62,18 +70,17 @@ public class server2 {
     String end = "end";
     String search = "search";
     String add = "add";
-    String[] query_type = { search, add };
+    String list = "list";
+    String[] query_type = { search, add, list };
     String[] search_type = { "Number", "Name" };
     String[] add_queries = { "Number", "  Name", "Score1", "Score2", "Score3", "Score4" };
     Pattern seiseki_ptn = Pattern.compile(":([0-9]+):([a-zA-Z]+):([0-9]+):([0-9]+):([0-9]+):([0-9]+)");
 
-    TreeMap<Integer, seiseki> all_datas = new TreeMap<>();
-    TreeSet<String> name_set = new TreeSet<>();
-    TreeSet<Integer> number_set = new TreeSet<>();
+    TreeMap<Integer, seiseki> number_key_data = new TreeMap<>();
+    TreeMap<String, seiseki> name_key_data = new TreeMap<>();
     for (seiseki elm : read_sieski(file)) {
-      all_datas.put(elm.number, elm);
-      name_set.add(elm.name);
-      number_set.add(elm.number);
+      number_key_data.put(elm.number, elm);
+      name_key_data.put(elm.name, elm);
     }
 
     ALL: while (true) {
@@ -88,33 +95,68 @@ public class server2 {
         if (seiseki_str == null)
           break;
         seiseki tmp = parse_seiseki(seiseki_str, seiseki_ptn);
-        String message = new String();
+        String result_message = new String();
         if (tmp == null) {
           System.out.println("invalid seiseki input");
-          message = "invalid seiseki input";
-        } else if (name_set.contains(tmp.name)) {
+          result_message = "invalid seiseki input";
+        } else if (name_key_data.containsKey(tmp.name)) {
           System.out.println("duplication name");
-          message = "duplication name";
-        } else if (number_set.contains(tmp.number)) {
+          result_message = "duplication name";
+        } else if (number_key_data.containsKey(tmp.number)) {
           System.out.println("duplication number");
-          message = "duplication number";
+          result_message = "duplication number";
         } else {
-          all_datas.put(tmp.number, tmp);
-          name_set.add(tmp.name);
-          number_set.add(tmp.number);
-          message = "added data \"" + tmp.get_all() + "\"";
+          number_key_data.put(tmp.number, tmp);
+          name_key_data.put(tmp.name, tmp);
+          result_message = "added data \"" + tmp.get_all() + "\"";
         }
-        if (question(socket, message).equals(end))
+        if (message(socket, result_message).equals(end))
           break ALL;
-      } else if (type.equals(search)) {
-
       }
+
+      else if (type.equals(search)) {
+        String qst = "select " + String.join(",", search_type);
+        String stype = question(socket, qst);
+        String result_message = "not found";
+        if (stype.equals(end)) {
+          break ALL;
+        } else if (stype.equals("name") || stype.equals("Name")) {
+          String search_name = question(socket, "enter name");
+          if (search_name.equals(end))
+            break ALL;
+          if (name_key_data.containsKey(search_name))
+            result_message = name_key_data.get(search_name).get_all();
+        } else if (stype.equals("number") || stype.equals("Number")) {
+          String search_number_str = question(socket, "enter number");
+          if (search_number_str.equals(end))
+            break ALL;
+          Integer search_number = Integer.parseInt(search_number_str);
+          if (number_key_data.containsKey(search_number))
+            result_message = number_key_data.get(search_number).get_all();
+        }
+        if (message(socket, result_message).equals(end))
+          break ALL;
+      }
+
+      else if (type.equals(list)) {
+        PrintWriter socket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        for (seiseki elm : number_key_data.values()) {
+          socket_writer.println(elm.get_all());
+        }
+        socket_writer.println("endlist");
+        socket_writer.flush();
+        BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        socket_reader.readLine();
+      }
+
     }
+
     socket.close();
     server.close();
 
     PrintWriter writer = new PrintWriter(new FileOutputStream(file));
-    for (seiseki s : all_datas.values()) {
+    writer.println("Number  Name  Score1  Score2  Score3  Score4");
+    for (seiseki s : number_key_data.values()) {
       System.out.println(s.get_all());
       writer.println(s.get_str());
     }

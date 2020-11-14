@@ -24,6 +24,13 @@ public class client2 {
 
       if (line.equals("end"))
         break;
+      if (line.equals("list")) {
+        while (!(line = socket_reader.readLine()).equals("endlist")) {
+          System.out.println(line);
+        }
+        socket_writer.println(line);
+        socket_writer.flush();
+      }
     }
     socket.close();
   }
