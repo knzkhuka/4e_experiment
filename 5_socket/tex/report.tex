@@ -209,6 +209,14 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 
 次に、変数の共有についてソースコード\ref{mt2}に示すものを実行すると、
 "asdf1234"と表示される。
+本来これに期待される動作は"asdf"に"1234"を10回連接したものである。
+しかし、各スレッドでString型の変数sは共有されていないため、
+1回だけ"1234"を連接したものが出力されてしまう。
+サーバープログラムではプログラムの動作中は
+成績情報をTreeMapによって管理しているため、
+複数のスレッドでそれぞれに追加された成績情報が共有されなければ
+重複登録が起こってしまう可能性が高いため、これは許容できない。
+
 \begin{lstlisting}[caption=マルチスレッドの例2,label=mt2]
   public class Main {
     public static void main(String[] args) {
@@ -237,6 +245,43 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
     public String getStr() {
       return this.str;
     }
+  }
+\end{lstlisting}
+
+これは、えーどうしようか　synchronizedを使う必要、ある？　調べようね　スレッドセーフについて
+
+\begin{lstlisting}[caption=マルチスレッドの例3,label=mt3]
+  import java.io.*;
+  import java.util.ArrayList;
+  public class Main {
+    public static void main(String[] args) {
+      ArrayList<Integer> ary = new ArrayList<>();
+      hoge fuga = new hoge(ary);
+      Thread t[] = new Thread[10];
+      for (int i = 0; i < 10; ++i) t[i] = new Thread(fuga);
+      for (int i = 0; i < 10; ++i) t[i].start();
+      for (int i = 0; i < 10; ++i)
+        try {
+          t[i].join();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      for (Integer i : fuga.getAry()) 
+        System.out.println("main : " + i);
+    }
+  }
+  class hoge implements Runnable {
+    private ArrayList<Integer> ary;
+    public hoge(ArrayList<Integer> a) {this.ary = a;}
+    public void run() {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      try {
+        this.ary.add(Integer.parseInt(br.readLine()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    public ArrayList<Integer> getAry() {return this.ary;}
   }
 \end{lstlisting}
 
