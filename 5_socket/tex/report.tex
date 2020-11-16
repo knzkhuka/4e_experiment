@@ -143,7 +143,7 @@ TreeMapに挿入する。
 
 \subsection{閲覧}
 番号をキーとしたTreeMapのvaluesメソッドを使い、番号の昇順にならんだ
-seisekiクラスの集合を得る。それぞれに対して
+seisekiクラスの集合を得る。それぞれに対して文字数が
 図\ref{seiseki_format}のようにフォーマットした文字列を送信する。
 \begin{figure}[H]
   \centering
@@ -152,6 +152,11 @@ seisekiクラスの集合を得る。それぞれに対して
   \label{seiseki_format}
 \end{figure}
 
+この時だけ他の通信の時と違い、1行だけでなくデータ数行分送信を行う。
+クライアント側では、通常1行受け取る処理しかしていないため、
+データ一覧を要求したときだけif文を使い複数行の入力に対応している。
+
+\subsection{サーバーのマルチスレッド化}
 
 
 \section{結果と考察}
