@@ -159,16 +159,16 @@ seisekiクラスの集合を得る。それぞれに対して文字数が
 \subsection{サーバーのマルチスレッド化}
 
 \begin{lstlisting}
-  Thread-1 : 0
-  Thread-1 : 1
-  Thread-1 : 2
-  Thread-1 : 3
-  Thread-1 : 4
   Thread-0 : 0
+  Thread-1 : 0
   Thread-0 : 1
   Thread-0 : 2
+  Thread-1 : 1
+  Thread-1 : 2
   Thread-0 : 3
+  Thread-1 : 3
   Thread-0 : 4
+  Thread-1 : 4
 \end{lstlisting}
 
 \section{結果と考察}
