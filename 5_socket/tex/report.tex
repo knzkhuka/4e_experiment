@@ -158,8 +158,11 @@ seisekiクラスの集合を得る。それぞれに対して文字数が
 
 \subsection{サーバーのマルチスレッド化}
 
-
-\begin{lstlisting}
+JavaではThreadクラスの継承やRunnableインターフェースを実装することで
+プログラムを並列実行させることが出来る。
+ソースコード\ref{mt1}を実行した結果を図\ref{mt_r_1},\ref{mt_r_2}
+に示す。
+\begin{lstlisting}[caption=マルチスレッドの例,label=mt1]
   public class Main extends Thread {
     public static void main(String[] args){
       Thread t1 = new Main();
@@ -168,12 +171,27 @@ seisekiクラスの集合を得る。それぞれに対して文字数が
       t2.start();
     }
     public void run() {
-      for (int i = 0; i < 5; ++i) {
+      for (int i = 0; i < 5; ++i)
         System.out.println(getName() + " : " + i);
-      }
     }
   }  
 \end{lstlisting}
+\begin{figure}[H]
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=0.4\hsize]{../pic/3_1.png}
+    \end{center}
+    \caption{2回目の実行結果}
+    \label{mt_r_1}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=0.4\hsize]{../pic/3_2.png}
+    \end{center}
+  \end{minipage}
+  \caption{2回目の実行結果}
+  \label{mt_r_2}
+\end{figure}
 
 \section{結果と考察}
 
