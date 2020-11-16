@@ -18,39 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class multiThreadServer {
-  public static ArrayList<seiseki> read_sieski(File file) {
-    Pattern ptn = Pattern
-        .compile("([0-9]+)\\t([a-zA-Z]+)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)");
-    ArrayList<seiseki> data = new ArrayList<>();
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(file));
-      reader.readLine();
-      String str = new String();
-      while ((str = reader.readLine()) != null) {
-        seiseki tmp = parse_seiseki(str, ptn);
-        if (tmp != null)
-          data.add(tmp);
-      }
-      reader.close();
-    } catch (FileNotFoundException err) {
-      System.out.println(err);
-    } catch (IOException err) {
-      System.out.println(err);
-    }
-    return data;
-  }
-
-  public static seiseki parse_seiseki(String line, Pattern ptn) {
-    Matcher seiseki_match = ptn.matcher(line);
-    if (!seiseki_match.matches())
-      return null;
-    int number = Integer.parseInt(seiseki_match.group(1));
-    String name = seiseki_match.group(2);
-    int[] scores = { Integer.parseInt(seiseki_match.group(3)), Integer.parseInt(seiseki_match.group(4)),
-        Integer.parseInt(seiseki_match.group(5)), Integer.parseInt(seiseki_match.group(6)) };
-    seiseki tmp = new seiseki(number, name, scores);
-    return tmp;
-  }
 
   public static void main(String[] args) throws IOException {
     String path = "output.txt";
@@ -59,7 +26,7 @@ public class multiThreadServer {
     TreeMap<Integer, seiseki> number_data = new TreeMap<Integer, seiseki>();
     Map<String, seiseki> name_key_data = Collections.synchronizedSortedMap(name_data);
     Map<Integer, seiseki> number_key_data = Collections.synchronizedSortedMap(number_data);
-    for (seiseki elm : read_sieski(file)) {
+    for (seiseki elm : seiseki.read_seiseki(file)) {
       number_key_data.put(elm.number, elm);
       name_key_data.put(elm.name, elm);
     }
@@ -72,7 +39,6 @@ public class multiThreadServer {
       new Thread(new seisekiServer(socket, name_key_data, number_key_data)).start();
     }
 
-    server.close();
   }
 }
 
@@ -118,18 +84,6 @@ class seisekiServer implements Runnable {
     return result;
   }
 
-  public static seiseki parse_seiseki(String line, Pattern ptn) {
-    Matcher seiseki_match = ptn.matcher(line);
-    if (!seiseki_match.matches())
-      return null;
-    int number = Integer.parseInt(seiseki_match.group(1));
-    String name = seiseki_match.group(2);
-    int[] scores = { Integer.parseInt(seiseki_match.group(3)), Integer.parseInt(seiseki_match.group(4)),
-        Integer.parseInt(seiseki_match.group(5)), Integer.parseInt(seiseki_match.group(6)) };
-    seiseki tmp = new seiseki(number, name, scores);
-    return tmp;
-  }
-
   public void run() {
 
     String path = "output.txt";
@@ -154,7 +108,7 @@ class seisekiServer implements Runnable {
           String seiseki_str = questions(socket, add_queries);
           if (seiseki_str == null)
             break;
-          seiseki tmp = parse_seiseki(seiseki_str, seiseki_ptn);
+          seiseki tmp = seiseki.parse_seiseki(seiseki_str, seiseki_ptn);
           String result_message = new String();
           if (tmp == null) {
             System.out.println("invalid seiseki input");
@@ -264,5 +218,39 @@ class seiseki {
     for (int s : scores)
       scos += "\t" + String.valueOf(s);
     return nums + nams + scos;
+  }
+
+  public static ArrayList<seiseki> read_seiseki(File file) {
+    Pattern ptn = Pattern
+        .compile("([0-9]+)\\t([a-zA-Z]+)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)\\t([0-9]{1,2}|100)");
+    ArrayList<seiseki> data = new ArrayList<>();
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(file));
+      reader.readLine();
+      String str = new String();
+      while ((str = reader.readLine()) != null) {
+        seiseki tmp = seiseki.parse_seiseki(str, ptn);
+        if (tmp != null)
+          data.add(tmp);
+      }
+      reader.close();
+    } catch (FileNotFoundException err) {
+      System.out.println(err);
+    } catch (IOException err) {
+      System.out.println(err);
+    }
+    return data;
+  }
+
+  public static seiseki parse_seiseki(String line, Pattern ptn) {
+    Matcher seiseki_match = ptn.matcher(line);
+    if (!seiseki_match.matches())
+      return null;
+    int number = Integer.parseInt(seiseki_match.group(1));
+    String name = seiseki_match.group(2);
+    int[] scores = { Integer.parseInt(seiseki_match.group(3)), Integer.parseInt(seiseki_match.group(4)),
+        Integer.parseInt(seiseki_match.group(5)), Integer.parseInt(seiseki_match.group(6)) };
+    seiseki tmp = new seiseki(number, name, scores);
+    return tmp;
   }
 }
