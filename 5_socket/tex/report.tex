@@ -248,42 +248,12 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
   }
 \end{lstlisting}
 
-これは、えーどうしようか　synchronizedを使う必要、ある？　調べようね　スレッドセーフについて
+これは、Stringがスレッドセーフなクラスではないためである。
+スレッドセーフとはあるプログラムを並列実行しても問題がないことである。
+スレッドセーフではないとは、あるスレッドで変更した共有データが
+他のスレッドによって上書きされてしまう可能性があることである。
 
-\begin{lstlisting}[caption=マルチスレッドの例3,label=mt3]
-  import java.io.*;
-  import java.util.ArrayList;
-  public class Main {
-    public static void main(String[] args) {
-      ArrayList<Integer> ary = new ArrayList<>();
-      hoge fuga = new hoge(ary);
-      Thread t[] = new Thread[10];
-      for (int i = 0; i < 10; ++i) t[i] = new Thread(fuga);
-      for (int i = 0; i < 10; ++i) t[i].start();
-      for (int i = 0; i < 10; ++i)
-        try {
-          t[i].join();
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      for (Integer i : fuga.getAry()) 
-        System.out.println("main : " + i);
-    }
-  }
-  class hoge implements Runnable {
-    private ArrayList<Integer> ary;
-    public hoge(ArrayList<Integer> a) {this.ary = a;}
-    public void run() {
-      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      try {
-        this.ary.add(Integer.parseInt(br.readLine()));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    public ArrayList<Integer> getAry() {return this.ary;}
-  }
-\end{lstlisting}
+
 
 \section{結果と考察}
 
