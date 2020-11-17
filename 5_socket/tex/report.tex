@@ -279,14 +279,6 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 
 \begin{lstlisting}[caption=成績情報追加1,label=add_1]
   Thread-0:send[select search,add,list : ]
-  Thread-0:recv[list]
-  Thread-0:send[  1   Michael  75  86  89  31 70.3]
-  Thread-0:send[  2      Emma  74  63  70  48 63.8]
-  Thread-0:send[  3    Hannah  73  45  82  31 57.8]
-  Thread-0:send[  4     Emily  40  30  49  48 41.8]
-  Thread-0:send[  5    Daniel  46  59  47  70 55.5]
-  Thread-0:send[  6    Oliver  59  26  61  44 47.5]
-  Thread-0:send[select search,add,list : ]
   Thread-0:recv[add]
   Thread-0:send[Number : ]
   Thread-0:recv[7]
@@ -301,7 +293,16 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
   Thread-0:send[Score4 : ]
   Thread-0:recv[72]
   Thread-0:send[added data "  7       Mia  74  64  62  72 68.0"  (enter to next)]
+  Thread-0:recv[]
 \end{lstlisting}
+
+ログ出力の1行は3つの部分からなり、最初に通信しているスレッド名、
+次に送信(send)か、受信(receive)か、最後に送受信された文字列を出力している。
+このときは1つのクライアントしか起動していないのでスレッド名は同じである。
+これは、Number,Name,Scoreのそれぞれについて問いかけを行い回答を
+受け取り、seisekiクラスにパースしてデータを保存している。
+このときはMiaの情報はプログラム内で保持されるのみで出力ファイルに
+出力はされていない。
 
 
 \begin{thebibliography}{10}
