@@ -299,10 +299,67 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 ログ出力の1行は3つの部分からなり、最初に通信しているスレッド名、
 次に送信(send)か、受信(receive)か、最後に送受信された文字列を出力している。
 このときは1つのクライアントしか起動していないのでスレッド名は同じである。
-これは、Number,Name,Scoreのそれぞれについて問いかけを行い回答を
+最初に定めた通信の手順に従い、送信と受信を交互に行っている。
+一番最初に送信した文字列によってデータの追加か検索か、一覧の出力を選択してもらい、
+それ以降は各クエリについての手順に従っている。
+成績の追加クエリでは、Number,Name,Scoreのそれぞれについて問いかけを行い回答を
 受け取り、seisekiクラスにパースしてデータを保存している。
-このときはMiaの情報はプログラム内で保持されるのみで出力ファイルに
+このときに登録されたMiaの情報はプログラム内で保持されるのみで出力ファイルに
 出力はされていない。
+
+次に、名前か番号が重複している入力、得点にエラーがある入力をしたときの出力を
+ソースコード\ref{out2}に示す。
+\begin{lstlisting}[caption=不正な成績追加入力,label=out2]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[add]
+  Thread-0:send[Number : ]
+  Thread-0:recv[8]
+  Thread-0:send[  Name : ]
+  Thread-0:recv[Mia]
+  Thread-0:send[Score1 : ]
+  Thread-0:recv[1]
+  Thread-0:send[Score2 : ]
+  Thread-0:recv[1]
+  Thread-0:send[Score3 : ]
+  Thread-0:recv[1]
+  Thread-0:send[Score4 : ]
+  Thread-0:recv[1]
+  Thread-0:send[duplication name  (enter to next)]
+  Thread-0:recv[]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[add]
+  Thread-0:send[Number : ]
+  Thread-0:recv[2]
+  Thread-0:send[  Name : ]
+  Thread-0:recv[Luna]
+  Thread-0:send[Score1 : ]
+  Thread-0:recv[52]
+  Thread-0:send[Score2 : ]
+  Thread-0:recv[72]
+  Thread-0:send[Score3 : ]
+  Thread-0:recv[57]
+  Thread-0:send[Score4 : ]
+  Thread-0:recv[56]
+  Thread-0:send[duplication number  (enter to next)]
+  Thread-0:recv[]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[add]
+  Thread-0:send[Number : ]
+  Thread-0:recv[8]
+  Thread-0:send[  Name : ]
+  Thread-0:recv[James]
+  Thread-0:send[Score1 : ]
+  Thread-0:recv[86]
+  Thread-0:send[Score2 : ]
+  Thread-0:recv[611]
+  Thread-0:send[Score3 : ]
+  Thread-0:recv[51]
+  Thread-0:send[Score4 : ]
+  Thread-0:recv[78]
+  Thread-0:send[invalid seiseki input  (enter to next)]
+  Thread-0:recv[]  
+\end{lstlisting}
+
 
 
 \begin{thebibliography}{10}
