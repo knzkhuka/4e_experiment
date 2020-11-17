@@ -259,6 +259,51 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 
 \section{結果と考察}
 
+成績情報に表\ref{out0}の情報が出力ファイルに書き込まれているところから、
+"7 Mia 74 64 62 72"を追加するときのサーバーのログをソースコード\ref{add_1}
+に示す。
+\begin{table}[H]
+  \begin{tabular}{cccccc}
+    Number & Name    & Score1 & Score2 & Score3 & Score4 \\
+    1      & Michael & 75     & 86     & 89     & 31     \\
+    2      & Emma    & 74     & 63     & 70     & 48     \\
+    3      & Hannah  & 73     & 45     & 82     & 31     \\
+    4      & Emily   & 40     & 30     & 49     & 48     \\
+    5      & Daniel  & 46     & 59     & 47     & 70     \\
+    6      & Oliver  & 59     & 26     & 61     & 44
+  \end{tabular}
+  \centering
+  \caption{事前に書き込まれている成績情報}
+  \label{out0}
+\end{table}
+
+\begin{lstlisting}[caption=成績情報追加1,label=add_1]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[list]
+  Thread-0:send[  1   Michael  75  86  89  31 70.3]
+  Thread-0:send[  2      Emma  74  63  70  48 63.8]
+  Thread-0:send[  3    Hannah  73  45  82  31 57.8]
+  Thread-0:send[  4     Emily  40  30  49  48 41.8]
+  Thread-0:send[  5    Daniel  46  59  47  70 55.5]
+  Thread-0:send[  6    Oliver  59  26  61  44 47.5]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[add]
+  Thread-0:send[Number : ]
+  Thread-0:recv[7]
+  Thread-0:send[  Name : ]
+  Thread-0:recv[Mia]
+  Thread-0:send[Score1 : ]
+  Thread-0:recv[74]
+  Thread-0:send[Score2 : ]
+  Thread-0:recv[64]
+  Thread-0:send[Score3 : ]
+  Thread-0:recv[62]
+  Thread-0:send[Score4 : ]
+  Thread-0:recv[72]
+  Thread-0:send[added data "  7       Mia  74  64  62  72 68.0"  (enter to next)]
+\end{lstlisting}
+
+
 \begin{thebibliography}{10}
   \bibitem{1}　Javaプログラムにおける通信のしくみを理解する
 
