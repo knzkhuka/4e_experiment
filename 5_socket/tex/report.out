@@ -1,4 +1,10 @@
 %このファイルは日本語文字を含みます.
 \BOOKMARK [1][-]{section.1}{実験目的・課題}{}% 1
 \BOOKMARK [1][-]{section.2}{実装方法}{}% 2
-\BOOKMARK [1][-]{section.3}{結果と考察}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{全体の方針}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{情報の記録}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{登録}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{検索}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{閲覧}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{サーバーのマルチスレッド化}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{結果と考察}{}% 9

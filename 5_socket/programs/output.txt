@@ -1,7 +1,10 @@
 Number  Name  Score1  Score2  Score3  Score4
-1	ate	65	54	43	32
-2	asdf	43	54	65	76
-3	knzk	43	43	43	43
-4	kmnz	87	87	87	87
-33	jhgf	43	54	65	66
-43	reuu	43	32	45	56
+1	Michael	75	86	89	31
+2	Emma	74	63	70	48
+3	Hannah	73	45	82	31
+4	Emily	40	30	49	48
+5	Daniel	46	59	47	70
+6	Oliver	59	26	61	44
+7	Mia	74	64	62	72
+8	James	86	61	51	78
+10	Luna	52	72	57	56

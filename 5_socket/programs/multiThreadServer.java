@@ -29,6 +29,8 @@ public class multiThreadServer {
     for (seiseki elm : seiseki.read_seiseki(file)) {
       number_key_data.put(elm.number, elm);
       name_key_data.put(elm.name, elm);
+      number_data.put(elm.number, elm);
+      name_data.put(elm.name, elm);
     }
 
     int port = 10101;
@@ -36,13 +38,14 @@ public class multiThreadServer {
 
     while (true) {
       Socket socket = server.accept();
-      new Thread(new seisekiServer(socket, name_key_data, number_key_data)).start();
+      new seisekiServer(socket, name_key_data, number_key_data).start();
+      System.out.println("new Thread");
     }
 
   }
 }
 
-class seisekiServer implements Runnable {
+class seisekiServer extends Thread {
 
   Socket socket;
   Map<String, seiseki> name_key_data;
@@ -54,25 +57,36 @@ class seisekiServer implements Runnable {
     this.number_key_data = b;
   }
 
-  public static String question(Socket socket, String query) throws IOException {
+  public void logout(Integer send, String str) {
+    String name = getName();
+    long id = getId();
+    String sr = (send == 1 ? "send" : "recv");
+    System.out.println(name + ":" + sr + "[" + str + "]");
+  }
+
+  public String question(Socket socket, String query) throws IOException {
     PrintWriter soket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
     soket_writer.println(query + " : ");
     soket_writer.flush();
+    logout(1, query + " : ");
     BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     String line = socket_reader.readLine();
+    logout(2, line);
     return line;
   }
 
-  public static String message(Socket socket, String query) throws IOException {
+  public String message(Socket socket, String query) throws IOException {
     PrintWriter soket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
     soket_writer.println(query + "  (enter to next)");
     soket_writer.flush();
+    logout(1, query + "  (enter to next)");
     BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     String line = socket_reader.readLine();
+    logout(2, line);
     return line;
   }
 
-  public static String questions(Socket socket, String[] queries) throws IOException {
+  public String questions(Socket socket, String[] queries) throws IOException {
     String result = new String();
     for (String query : queries) {
       String data = question(socket, query);
@@ -80,7 +94,6 @@ class seisekiServer implements Runnable {
         return null;
       result += ":" + data;
     }
-    System.out.println("result \"" + result + "\"");
     return result;
   }
 
@@ -95,7 +108,8 @@ class seisekiServer implements Runnable {
     String[] query_type = { search, add, list };
     String[] search_type = { "Number", "Name" };
     String[] add_queries = { "Number", "  Name", "Score1", "Score2", "Score3", "Score4" };
-    Pattern seiseki_ptn = Pattern.compile(":([0-9]+):([a-zA-Z]+):([0-9]+):([0-9]+):([0-9]+):([0-9]+)");
+    Pattern seiseki_ptn = Pattern
+        .compile(":([0-9]+):([a-zA-Z]+):([0-9]{1,2}|100):([0-9]{1,2}|100):([0-9]{1,2}|100):([0-9]{1,2}|100)");
 
     ALL: while (true) {
       try {
@@ -126,9 +140,7 @@ class seisekiServer implements Runnable {
           }
           if (message(socket, result_message).equals(end))
             break ALL;
-        }
-
-        else if (type.equals(search)) {
+        } else if (type.equals(search)) {
           String qst = "select " + String.join(",", search_type);
           String stype = question(socket, qst);
           String result_message = "not found";
@@ -150,17 +162,16 @@ class seisekiServer implements Runnable {
           }
           if (message(socket, result_message).equals(end))
             break ALL;
-        }
-
-        else if (type.equals(list)) {
+        } else if (type.equals(list)) {
           PrintWriter socket_writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
           for (seiseki elm : number_key_data.values()) {
             socket_writer.println(elm.get_all());
+            logout(1, elm.get_all());
           }
           socket_writer.println("endlist");
           socket_writer.flush();
-          BufferedReader socket_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-          socket_reader.readLine();
+        } else {
+          System.out.println("invalid selected");
         }
       } catch (IOException e) {
         e.printStackTrace();
@@ -177,7 +188,7 @@ class seisekiServer implements Runnable {
       PrintWriter writer = new PrintWriter(new FileOutputStream(file));
       writer.println("Number  Name  Score1  Score2  Score3  Score4");
       for (seiseki s : number_key_data.values()) {
-        System.out.println(s.get_all());
+        System.out.println("file output [" + s.get_all() + "]");
         writer.println(s.get_str());
       }
       writer.flush();
