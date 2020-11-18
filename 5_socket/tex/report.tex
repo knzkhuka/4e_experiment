@@ -94,6 +94,12 @@ whileで囲い何度もループさせればよい。
 サーバープログラムでは、サーバーの要件に従い、
 成績情報の登録、検索、閲覧ができるものを作成する。
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\hsize]{../pic/flowchart1.png}
+  \caption{メイン関数のフローチャート}
+  \label{fc1}
+\end{figure}
 
 \subsection{情報の記録}
 今回作成するプログラムは登録された情報を外部ファイルに書き込み保存し、
@@ -114,13 +120,6 @@ TreeMap \textless K,V\textgreater は型Kのキーによって型Vの値にア�
 TreeMapでデータを保存しておけばプログラムの最後に出力するときにキーの
 昇順で成績情報を得られるので、
 データの閲覧時にわかりやすさが向上することが見込める。
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\hsize]{../pic/flowchart1.png}
-  \caption{メイン関数のフローチャート}
-  \label{fc1}
-\end{figure}
 
 \subsection{登録}
 成績情報の登録にはNumber,Name,Scoreが必要である。
@@ -164,8 +163,12 @@ seisekiクラスの集合を得る。それぞれに対して文字数が
 クライアント側では、通常1行受け取る処理しかしていないため、
 データ一覧を要求したときだけif文を使い複数行の入力に対応している。
 
-
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\hsize]{../pic/flowchart2.png}
+  \caption{サーバーの処理}
+  \label{fc2}
+\end{figure}
 
 \subsection{サーバーのマルチスレッド化}
 
