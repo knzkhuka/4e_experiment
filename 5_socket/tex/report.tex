@@ -368,6 +368,54 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 重複はしていないが点数が611点の入力があるため正規表現にマッチせず、
 入力にエラーありと判断される。
 
+次に、2つ目のクライアントを起動して2つのクライアントで
+同じデータを追加しようとしたときのサーバーのログ出力を
+ソースコード\ref{out3}に示す。
+1行目のセレクトクエリがスレッド0によって送られているが
+それに接続しているクライアントが何らかの入力をするまでは
+何もできないため待機している。
+2行目の"new thread"というのはメイン関数内で新たにポートに
+接続要求をしてきたクライアントがいたため新しくserver.acceptをし、
+別のソケットで新しいスレッドを開始したことを通知するものである。
+\begin{lstlisting}[caption=別のクライアントによる登録,label=out3]
+  Thread-0:send[select search,add,list : ]
+  new Thread
+  Thread-1:send[select search,add,list : ]
+  Thread-1:recv[add]
+  Thread-1:send[Number : ]
+  Thread-1:recv[10]
+  Thread-1:send[  Name : ]
+  Thread-1:recv[Luna]
+  Thread-1:send[Score1 : ]
+  Thread-1:recv[52]
+  Thread-1:send[Score2 : ]
+  Thread-1:recv[72]
+  Thread-1:send[Score3 : ]
+  Thread-1:recv[57]
+  Thread-1:send[Score4 : ]
+  Thread-1:recv[56]
+  Thread-1:send[added data " 10      Luna  52  72  57  56 59.3"  (enter to next)]
+  Thread-1:recv[]
+  Thread-1:send[select search,add,list : ]
+  Thread-0:recv[add]
+  Thread-0:send[Number : ]
+  Thread-0:recv[10]
+  Thread-0:send[  Name : ]
+  Thread-0:recv[Luna]
+  Thread-0:send[Score1 : ]
+  Thread-0:recv[52]
+  Thread-0:send[Score2 : ]
+  Thread-0:recv[72]
+  Thread-0:send[Score3 : ]
+  Thread-0:recv[57]
+  Thread-0:send[Score4 : ]
+  Thread-0:recv[56]
+  Thread-0:send[duplication name  (enter to next)]
+  Thread-0:recv[]
+\end{lstlisting}
+
+
+
 \begin{thebibliography}{10}
   \bibitem{1}　Javaプログラムにおける通信のしくみを理解する
 
