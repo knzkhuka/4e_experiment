@@ -94,6 +94,20 @@ whileで囲い何度もループさせればよい。
 サーバープログラムでは、サーバーの要件に従い、
 成績情報の登録、検索、閲覧ができるものを作成する。
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/flowchart1.png}
+  \caption{メイン関数のフローチャート}
+  \label{fc1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/flowchart2.png}
+  \caption{サーバーの処理}
+  \label{fc2}
+\end{figure}
+
 \subsection{情報の記録}
 今回作成するプログラムは登録された情報を外部ファイルに書き込み保存し、
 次回サーバー起動時にそれを読み込み登録済み情報として保持することが出来るようにする。
@@ -563,6 +577,10 @@ $O(N)+O(1) = O(N)$かかってしまうため、データ数が数万件にな�
 例えばArrayListによってデータを管理していれば1,2,3,4,5,6,7,10,8の順序で
 表示されるが、TreeMapで番号をキーとして管理していれば
 ソースコード\ref{out6}のように、7と10の間に8が挿入される。
+
+これによって例えば生徒がそれぞれ自分の成績を登録したとしても
+それを見るときには番号でソートされており誰が登録していないかなどが
+一目でわかるようになる。
 
 \begin{thebibliography}{10}
   \bibitem{1}　Javaプログラムにおける通信のしくみを理解する
