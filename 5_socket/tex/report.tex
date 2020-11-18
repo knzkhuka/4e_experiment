@@ -371,12 +371,7 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 次に、2つ目のクライアントを起動して2つのクライアントで
 同じデータを追加しようとしたときのサーバーのログ出力を
 ソースコード\ref{out3}に示す。
-1行目のセレクトクエリがスレッド0によって送られているが
-それに接続しているクライアントが何らかの入力をするまでは
-何もできないため待機している。
-2行目の"new thread"というのはメイン関数内で新たにポートに
-接続要求をしてきたクライアントがいたため新しくserver.acceptをし、
-別のソケットで新しいスレッドを開始したことを通知するものである。
+
 \begin{lstlisting}[caption=別のクライアントによる登録,label=out3]
   Thread-0:send[select search,add,list : ]
   new Thread
@@ -412,6 +407,54 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
   Thread-0:recv[56]
   Thread-0:send[duplication name  (enter to next)]
   Thread-0:recv[]
+\end{lstlisting}
+
+1行目のセレクトクエリがスレッド0によって送られているが
+それに接続しているクライアントが何らかの入力をするまでは
+何もできないため待機している。
+2行目の"new thread"というのはメイン関数内で新たにポートに
+接続要求をしてきたクライアントがいたため新しくserver.acceptをし、
+別のソケットで新しいスレッドを開始したことを通知するものである。
+新しく開始したスレッド1によって"10 Luna 52 72 57 56"を追加し、
+その後、同じデータをスレッド0によって追加しようとしている。
+スレッド0によって追加しようとしたときは、データの重複のため、
+登録できていない。このことから、
+複数のスレッドで成績データを管理しているTreeMapが同期されていることがわかる。
+
+次に、検索クエリでの動作をソースコード\ref{out4}に示す。
+\begin{lstlisting}[caption=検索クエリ,label=out4]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[search]
+  Thread-0:send[select Number,Name : ]
+  Thread-0:recv[name]
+  Thread-0:send[enter name : ]
+  Thread-0:recv[Mason]
+  Thread-0:send[not found  (enter to next)]
+  Thread-0:recv[]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[search]
+  Thread-0:send[select Number,Name : ]
+  Thread-0:recv[name]
+  Thread-0:send[enter name : ]
+  Thread-0:recv[Luna]
+  Thread-0:send[ 10      Luna  52  72  57  56 59.3  (enter to next)]
+  Thread-0:recv[]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[search]
+  Thread-0:send[select Number,Name : ]
+  Thread-0:recv[number]
+  Thread-0:send[enter number : ]
+  Thread-0:recv[111]
+  Thread-0:send[not found  (enter to next)]
+  Thread-0:recv[]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[search]
+  Thread-0:send[select Number,Name : ]
+  Thread-0:recv[number]
+  Thread-0:send[enter number : ]
+  Thread-0:recv[1]
+  Thread-0:send[  1   Michael  75  86  89  31 70.3  (enter to next)]
+  Thread-0:recv[]  
 \end{lstlisting}
 
 
