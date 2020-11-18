@@ -483,7 +483,82 @@ runメソッドではgetNameメソッドによりスレッド名を取得しそ�
 実現されている。
 もし、TreeMapではなくArrayListでデータを管理していると、
 データの検索に$O(N)$かかり、追加時には重複判定が必要なため
-$O(N)+O(1) = O(N)$かかってしまうため、
+$O(N)+O(1) = O(N)$かかってしまうため、データ数が数万件になると
+数秒では処理できなくなってしまうと考えられる。
+
+次に、通信を終了するときの処理をソースコード\ref{out5}に示す。
+\begin{lstlisting}[caption=通信終了の処理,label=out5]
+  Thread-0:send[select search,add,list : ]
+  Thread-0:recv[end]
+  file output [  1   Michael  75  86  89  31 70.3]
+  file output [  2      Emma  74  63  70  48 63.8]
+  file output [  3    Hannah  73  45  82  31 57.8]
+  file output [  4     Emily  40  30  49  48 41.8]
+  file output [  5    Daniel  46  59  47  70 55.5]
+  file output [  6    Oliver  59  26  61  44 47.5]
+  file output [  7       Mia  74  64  62  72 68.0]
+  file output [ 10      Luna  52  72  57  56 59.3]
+\end{lstlisting}
+
+通信を終了するときは、どんなタイミングでもクライアント側で
+"end"という文字列を打ち込むことでサーバー側に通信終了を通告し
+応答を待たずソケットを閉じる処理にしている。サーバー側では
+クライアントから"end"という文字列が送られてきた場合
+そのスレッドの全ての処理を中断し、成績のデータを
+出力ファイルに書き込み、スレッドを終了する。
+
+最後に、スレッド1で番号8の成績を追加して終了したときのログをソースコード\ref{out6}に示す。
+\begin{lstlisting}[caption=番号がバラバラに追加されるときの処理,label=out6]
+  Thread-1:recv[list]
+  Thread-1:send[  1   Michael  75  86  89  31 70.3]
+  Thread-1:send[  2      Emma  74  63  70  48 63.8]
+  Thread-1:send[  3    Hannah  73  45  82  31 57.8]
+  Thread-1:send[  4     Emily  40  30  49  48 41.8]
+  Thread-1:send[  5    Daniel  46  59  47  70 55.5]
+  Thread-1:send[  6    Oliver  59  26  61  44 47.5]
+  Thread-1:send[  7       Mia  74  64  62  72 68.0]
+  Thread-1:send[ 10      Luna  52  72  57  56 59.3]
+  Thread-1:send[select search,add,list : ]
+  Thread-1:recv[add]
+  Thread-1:send[Number : ]
+  Thread-1:recv[8]
+  Thread-1:send[  Name : ]
+  Thread-1:recv[James]
+  Thread-1:send[Score1 : ]
+  Thread-1:recv[86]
+  Thread-1:send[Score2 : ]
+  Thread-1:recv[61]
+  Thread-1:send[Score3 : ]
+  Thread-1:recv[51]
+  Thread-1:send[Score4 : ]
+  Thread-1:recv[78]
+  Thread-1:send[added data "  8     James  86  61  51  78 69.0"  (enter to next)]
+  Thread-1:recv[]
+  Thread-1:send[select search,add,list : ]
+  Thread-1:recv[list]
+  Thread-1:send[  1   Michael  75  86  89  31 70.3]
+  Thread-1:send[  2      Emma  74  63  70  48 63.8]
+  Thread-1:send[  3    Hannah  73  45  82  31 57.8]
+  Thread-1:send[  4     Emily  40  30  49  48 41.8]
+  Thread-1:send[  5    Daniel  46  59  47  70 55.5]
+  Thread-1:send[  6    Oliver  59  26  61  44 47.5]
+  Thread-1:send[  7       Mia  74  64  62  72 68.0]
+  Thread-1:send[  8     James  86  61  51  78 69.0]
+  Thread-1:send[ 10      Luna  52  72  57  56 59.3]  
+  Thread-1:send[select search,add,list : ]
+  Thread-1:recv[end]
+  file output [  1   Michael  75  86  89  31 70.3]
+  file output [  2      Emma  74  63  70  48 63.8]
+  file output [  3    Hannah  73  45  82  31 57.8]
+  file output [  4     Emily  40  30  49  48 41.8]
+  file output [  5    Daniel  46  59  47  70 55.5]
+  file output [  6    Oliver  59  26  61  44 47.5]
+  file output [  7       Mia  74  64  62  72 68.0]
+  file output [  8     James  86  61  51  78 69.0]
+  file output [ 10      Luna  52  72  57  56 59.3]  
+\end{lstlisting}
+
+
 
 \begin{thebibliography}{10}
   \bibitem{1}　Javaプログラムにおける通信のしくみを理解する
