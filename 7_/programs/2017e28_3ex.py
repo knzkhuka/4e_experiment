@@ -45,10 +45,10 @@ data = [
 ]
 
 def gauss(a,b,f,n):
-  tmp = (b-a)/2*sum(data[n][1][i]*f((b-a)/2*data[n][0][i]+(b+a)/2) for i in range(n))
-  return tmp
+  return (b-a)/2*sum(data[n][1][i]*f((b-a)/2*data[n][0][i]+(b+a)/2) for i in range(n))
 
-def f(x):return (1-x**2)**0.5
+def f(x):
+  return (1-x**2)**0.5
 
 ns = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,40]
 gau = [4*gauss(0,1,f,n) for n in ns]
@@ -58,9 +58,9 @@ for i in range(len(ns)):
 """
 from math import pi
 from sympy import *
+init_printing()
 
 def gauss(a,b,f,n):
-  init_printing()
   x = Symbol('x')
   P = legendre(n,x)
   dP = diff(P)
