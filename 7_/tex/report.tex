@@ -112,7 +112,15 @@ $\Delta$を微小量として長方形の面積の和を計算し近似的な値
   \label{daikei2}
 \end{equation}
 
-さらに1区間の幅が$a_k-a_{k-1}=\frac{b-a}{n}\ (k=1,..,n)$
+\subsubsection{シンプソンの公式}
+シンプソンの公式は$f(x)$を二次関数$g(x)$で近似することで導かれる。
+$g(x)$は$f(x)$の点$a,m,b~(m=(a+b/2))$ラグランジュ補完によって次の多項式(式\ref{sim1})になる。
+\begin{equation}
+  g(x) = f(a)\frac{(x-m)(x-b)}{(a-m)(a-b)}+f(m)\frac{(x-a)(x-b)}{(m-a)(m-b)}+f(b)\frac{(x-a)(x-m)}{(b-a)(b-m)}
+  \label{sim1}
+\end{equation}
+
+
 
 \subsection{課題3}
 
