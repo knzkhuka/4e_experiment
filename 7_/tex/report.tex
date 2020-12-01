@@ -69,6 +69,20 @@
 しかし、計算機では極限の計算はできない。そのため、
 hに微小量を設定して近似して解を得る。
 
+微分を計算する差分のとり方は3つあり、それぞれ
+前方差分()、後方差分()、中心差分()である。
+\begin{equation}
+  f'(x) \neq \frac{f(x+h)-f(x)}{h}
+  \label{forward}
+\end{equation}
+\begin{equation}
+  f'(x) \neq \frac{f(x)-f(x-h)}{h}
+  \label{backward}
+\end{equation}
+\begin{equation}
+  f'(x) \neq \frac{f(x+h)-f(x-h)}{2h}
+\end{equation}
+
 \subsection{課題2}
 \subsection{課題3}
 
