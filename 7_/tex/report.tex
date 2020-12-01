@@ -96,8 +96,20 @@ hに微小量を設定して近似して解を得る。
 $\Delta$を微小量として長方形の面積の和を計算し近似的な値を得る。
 
 \subsubsection{台形公式}
-定積分$\int_a^b f(x)dx$の値はxy座標平面で$y=f(x)$と区間$[a,b]$で
+定積分$\int_a^b f(x)dx$の値はxy座標平面で$y=f(x)$とx軸の区間$[a,b]$で
 囲まれた面積になる。
+よって近似値は式\ref{daikei1}によって計算できる。
+\begin{equation}
+  \int_a^b f(x)dx \simeq (b-a)\frac{f(a)+f(b)}{2}
+  \label{daikei1}
+\end{equation}
+この式では、曲線$y=f(x)$が直線から離れているほど精度が悪くなる。
+そこで、積分区間$[a,b]$をn個の区間$[a_0,a_1],[a_1,a_2],...,[a_{n-1},a_n] (a_0=a,a_n=b)$
+に分割し、それぞれで台形公式を適用しその和で面積を近似計算する(式\ref{daikei2})。
+\begin{equation}
+  \int_a^b f(x) \simeq
+\end{equation}
+
 積分区間
 
 \subsection{課題3}
@@ -105,8 +117,8 @@ $\Delta$を微小量として長方形の面積の和を計算し近似的な値
 \section{結果と考察}
 
 \begin{thebibliography}{10}
-  \bibitem{1}
+  \bibitem{1} 台形公式
 
-  \url{}
+  \url{https://ja.wikipedia.org/wiki/%E5%8F%B0%E5%BD%A2%E5%85%AC%E5%BC%8F}
 \end{thebibliography}
 \end{document}
