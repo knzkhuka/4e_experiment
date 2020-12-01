@@ -107,7 +107,8 @@ $\Delta$を微小量として長方形の面積の和を計算し近似的な値
 そこで、積分区間$[a,b]$をn個の区間$[a_0,a_1],[a_1,a_2],...,[a_{n-1},a_n] (a_0=a,a_n=b)$
 に分割し、それぞれで台形公式を適用しその和で面積を近似計算する(式\ref{daikei2})。
 \begin{equation}
-  \int_a^b f(x) \simeq
+  \int_a^b f(x) \simeq \sum_{k=1}^{n} (a_k-a_{k-1})\frac{f(a_{k-1})+f(a_k)}{2}
+  \label{daikei2}
 \end{equation}
 
 積分区間
