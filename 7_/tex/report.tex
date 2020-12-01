@@ -70,7 +70,7 @@
 hに微小量を設定して近似して解を得る。
 
 微分を計算する差分のとり方は3つあり、それぞれ
-前方差分(\ref{forward})、後方差分(\ref{backward})、中心差分(\ref{central})である。
+前方差分(式\ref{forward})、後方差分(式\ref{backward})、中心差分(式\ref{central})である。
 \begin{equation}
   f'(x) \simeq \frac{f(x+h)-f(x)}{h}
   \label{forward}
@@ -93,7 +93,12 @@ hに微小量を設定して近似して解を得る。
   \label{integral}
 \end{equation}
 しかし、計算機では極限の計算が出来ないため、
-$\Delta$を微小量として近似的な値を得る。
+$\Delta$を微小量として長方形の面積の和を計算し近似的な値を得る。
+
+\subsubsection{台形公式}
+定積分$\int_a^b f(x)dx$の値はxy座標平面で$y=f(x)$と区間$[a,b]$で
+囲まれた面積になる。
+積分区間
 
 \subsection{課題3}
 
