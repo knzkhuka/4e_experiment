@@ -100,11 +100,12 @@ $f(x+h)$の$x=x$まわりでのテイラー展開は
 と書ける。
 前進差分の式に式\ref{taylor2}を代入して、
 \begin{eqnarray}
-  f'(x) ~&=&~ \frac{f(x+h)-f(x)}{h} \nonumber\\
-  &=&~ f'(x) + O(h)
+  \frac{f(x+h)-f(x)}{h} ~=~ f'(x) + O(h) \\
+  f'(x) ~=~ \frac{f(x+h)-f(x)}{h}+O(h)
   \label{err1}
 \end{eqnarray}
 つまり、前方差分の誤差は$O(h)$で評価できるということがわかる。
+
 
 \subsection{課題2}
 
@@ -305,11 +306,12 @@ $f(x-h)のテイラー展開$
   f(x-h) ~=~ f(x)-hf'(x)+\frac{h^2}{2!}f''(x)+\frac{h^3}{3!}f'''(x)+O(h^4)
 \end{eqnarray}
 
-中心差分の式
+なので、中心差分の式の誤差は
 \begin{eqnarray}
   \frac{f(x+h)-f(x-h)}{2h} ~&=&~ \frac{2hf'(x)+\frac{2h^3}{3!}f'''(x)+O(h^4)}{2h}\\
   &=&~ f'(x)+O(h^2)  
 \end{eqnarray}
+
 
 \begin{figure}[H]
   \centering
