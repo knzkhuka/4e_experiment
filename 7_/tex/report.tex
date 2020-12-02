@@ -311,17 +311,11 @@ $f(x-h)のテイラー展開$
 なので、中心差分の式は
 \begin{eqnarray}
   \frac{f(x+h)-f(x-h)}{2h} ~&=&~ \frac{2hf'(x)+\frac{2h^3}{3!}f'''(x)+O(h^4)}{2h}\\
-  &=&~ f'(x)+O(h^2)
+  &=&~ f'(x)+O(h^2)\\
+  f'(x) ~&=&~ \frac{f(x+h)-f(x-h)}{2h}+O(h^2)
 \end{eqnarray}
 となり、誤差は$O(h^2)$程度になる。ここで$h<1$の場合
 $O(h^2)$は$O(h)$よりも小さい。
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\hsize]{../pics/h=0_001_ll.png}
-  \caption{h=0.001の時のものをさらに拡大したもの}
-  \label{fig:h_0001_ll}
-\end{figure}
 
 
 \subsection{数値積分によって円の面積を求める}
