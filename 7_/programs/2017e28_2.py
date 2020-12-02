@@ -25,3 +25,10 @@ for i in range(len(N)):
 print("simpsons_rule")
 for i in range(len(N)):
   print("N = {0:6} : pi = {1:.6f} : err = {2:10.6f} [%]".format(N[i],sim[i],100*(sim[i]-pi)/pi))
+
+def g(x):return x**15
+N = [1,10,100,1000,10000]
+tra = [integral_based_trapezoidal_rule(-12,34,g,n) for n in N]
+sim = [integral_based_simpsons_rule(-12,34,g,n) for n in N]
+print(*map(int,tra),sep='\n')
+print(*map(int,sim),sep='\n')
