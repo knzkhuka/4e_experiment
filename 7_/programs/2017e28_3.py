@@ -9,9 +9,9 @@ print(4*gaus(0,1,f))
 
 from math import pi
 from sympy import *
+init_printing()
 
 def gauss(a,b,f,n):
-  init_printing()
   x = Symbol('x')
   P = legendre(n,x)
   dP = diff(P)
@@ -25,7 +25,7 @@ def gauss(a,b,f,n):
 def f(x):return (1-x**2)**0.5
 
 print("This process is time consuming")
-ns = [1,2,5,10,15,20,25,30]
+ns = [1,2,3,4,5]
 gau = [4*gauss(0,1,f,n) for n in ns]
 for i in range(len(ns)):
   print("N = {0:3} : pi = {1:.6f} : err = {2:10.6f} [%]".format(ns[i],gau[i],N(100*(gau[i]-pi)/pi)))
