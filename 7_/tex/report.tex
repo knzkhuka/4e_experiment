@@ -165,7 +165,13 @@ $f(x)$が$2n-1$次を超える多項式関数または、多項式関数では�
 \end{eqnarray}
 と変形できる。
 
-
+\subsubsection{ガウス求積法の分点と重み}
+ガウス求積の分点はルジャンドル多項式$P_n(z)$、$P_n(z)$は
+\begin{eqnarray}
+  P_0(z) ~&=&~ 1 \nonumber\\
+  P_1(z) ~&=&~ z \nonumber\\
+  P_k(z) ~&=&~ \frac{2k-1}{k}zP_{k-1}(z) - \frac{k-1}{k}P_{k-2}(z) ~,2\leq k
+\end{eqnarray}
 
 \section{結果と考察}
 
@@ -176,6 +182,8 @@ $f(x)$が$2n-1$次を超える多項式関数または、多項式関数では�
   \url{https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%83%97%E3%82%BD%E3%83%B3%E3%81%AE%E5%85%AC%E5%BC%8F}
   \bibitem{3} ガウス求積
   \url{https://ja.wikipedia.org/wiki/%E3%82%AC%E3%82%A6%E3%82%B9%E6%B1%82%E7%A9%8D}
+  \bibitem{数値解析 加古富志雄 令和元年 5 月 27 日}
+  \url{https://www.ics.nara-wu.ac.jp/~kako/teaching/na/chap6.pdf}
 
 \end{thebibliography}
 \end{document}
