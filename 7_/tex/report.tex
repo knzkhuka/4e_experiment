@@ -87,7 +87,7 @@ hに微小量を設定して近似して解を得る。
 $f(x)$の$x=a$まわりでのテイラー展開は
 \begin{eqnarray}
   f(x) ~=~ \sum_{k=0}^{\infty} \frac{1}{k!} f^{(k)}(a)(x-a)^k
-  \label{teylor1}
+  \label{taylor1}
 \end{eqnarray}
 である。よって、
 $f(x+h)$の$x=x$まわりでのテイラー展開は
@@ -95,10 +95,10 @@ $f(x+h)$の$x=x$まわりでのテイラー展開は
   f(x) ~&=&~ \sum_{k=0}^{\infty} \frac{1}{k!} f^{(k)}(x)h^k \nonumber\\
   &=&~ \frac{1}{0!}h^0f(x) + \frac{1}{1!}h^1f'(x) + \frac{1}{2!}h^2f''(x) + \frac{1}{3!}h^3f'''(x) + \dots \nonumber\\
   &=&~ f(x) + hf'(x) + O(h^2)
-  \label{teylor2}
+  \label{taylor2}
 \end{eqnarray}
 と書ける。
-前進差分の式に式\ref{teylor2}を代入して、
+前進差分の式に式\ref{taylor2}を代入して、
 \begin{eqnarray}
   f'(x) ~&=&~ \frac{f(x+h)-f(x)}{h} \nonumber\\
   &=&~ f'(x) + O(h)
@@ -293,7 +293,11 @@ $sin'(x)$の値は$cos(x)$の値と大きく異なっていることがわかる
 これを見ると、h=0.1であっても前進差分のときは真値より大きく、
 後退差分では真値よりも小さい値になってしまっていることがわかる。
 しかし、中心差分はほぼ正確に近似できていることがわかる。
-
+中心差分の誤差が前方差分、後方差分よりも小さいことは以下のように証明される。
+\begin{eqnarray}
+  前方差分のテイラー展開\\
+  f(x+h) ~&=&~ f(x)+hf'(x)+\frac{h^2}{2!}f''(x)+\frac{h^3}{3!}f'''(x)+O(h^4) \\
+\end{eqnarray}
 
 \begin{figure}[htbp]
   \centering
