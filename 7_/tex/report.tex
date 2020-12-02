@@ -369,7 +369,11 @@ $O(h^2)$は$O(h)$よりも小さい。
 \subsection{ガウス求積によって円の面積を求める}
 
 円の面積Sは式\ref{fomula:pi}によって求めることが出来る。
-これにガウスの数値積分公式\ref{gauss2}ｗ
+これにガウスの数値積分公式(式\ref{gauss2})を適用すると
+\begin{eqnarray}
+  S ~=~ 4 \int_0^1\sqrt{1-x^2}dx ~=~ -\frac{1}{2}\sum_{i=1}^{n} w_i f(^\frac{x_i}{2}+\frac{1}{2})
+  \label{fomula:gaus_pi}
+\end{eqnarray}
 
 
 \begin{thebibliography}{10}
