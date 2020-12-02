@@ -240,7 +240,11 @@ $h=1$としたときの前進差分(forward)、後退差分(backward)、中心�
 求めた$sin'(x)$の値を図\ref{fig:h_1}に示す。
 また、$h=0.1$としたときのものを図\ref{fig:h_01}に示す。
 
-
+図\ref{fig:h_1}に点線で示された数値微分によって求められた
+$sin'(x)$の値は$cos(x)$の値と大きく異なっていることがわかる。
+次に、図\ref{fig:h_01}をみるとhが1の時と比べて精度よく求められていることがわかる。
+つまり、刻み幅hを小さい値に設定するほど数値微分によって得られた値が
+真値(解析的な微分)に近くなると考えられる。
 
 \begin{figure}[htbp]
   \centering
@@ -255,6 +259,8 @@ $h=1$としたときの前進差分(forward)、後退差分(backward)、中心�
   \caption{h=0.1のときのx=0付近での拡大}
   \label{fig:h_01_large}
 \end{figure}
+
+
 
 \begin{figure}[H]
   \centering
