@@ -15,17 +15,24 @@ def gauss(a,b,f,n):
   x = Symbol('x')
   P = legendre(n,x)
   dP = diff(P)
+  #print("P_{}".format(n),latex(P))
+  #print("dP:",latex(dP))
   res = solve(P,x)
   X = [N(r) for r in res]
   W = [2/((1-xi**2)*(dP.subs(x,xi)**2)) for xi in X]
+  #for i in range(len(W)):
+    #print("{0}&{1} \\\\".format(f(X[i]),f(W[i])))
   tmp = (b-a)/2*sum(W[i]*f((b-a)/2*X[i]+(b+a)/2) for i in range(n))
-  print("process {} is completed".format(n))
+  #print("process {} is completed".format(n))
   return tmp
 
 def f(x):return (1-x**2)**0.5
 
-print("This process is time consuming")
+#print("This process is time consuming")
 ns = [1,2,3,4,5]
 gau = [4*gauss(0,1,f,n) for n in ns]
+"""
 for i in range(len(ns)):
   print("N = {0:3} : pi = {1:.6f} : err = {2:10.6f} [%]".format(ns[i],gau[i],N(100*(gau[i]-pi)/pi)))
+
+"""
