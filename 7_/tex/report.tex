@@ -72,15 +72,15 @@ hに微小量を設定して近似して解を得る。
 微分を計算する差分のとり方は3つあり、それぞれ
 前方差分(式\ref{forward})、後方差分(式\ref{backward})、中心差分(式\ref{central})である。
 \begin{equation}
-  f'(x) \simeq \frac{f(x+h)-f(x)}{h}
+  f'(x) ~\simeq~ \frac{f(x+h)-f(x)}{h}
   \label{forward}
 \end{equation}
 \begin{equation}
-  f'(x) \simeq \frac{f(x)-f(x-h)}{h}
+  f'(x) ~\simeq~ \frac{f(x)-f(x-h)}{h}
   \label{backward}
 \end{equation}
 \begin{equation}
-  f'(x) \simeq \frac{f(x+h)-f(x-h)}{2h}
+  f'(x) ~\simeq~ \frac{f(x+h)-f(x-h)}{2h}
   \label{central}
 \end{equation}
 
@@ -123,7 +123,7 @@ $\Delta$を微小量として長方形の面積の和を計算し近似的な値
 囲まれた面積になる。
 よって近似値は式\ref{daikei1}によって計算できる。
 \begin{equation}
-  \int_a^b f(x)dx \simeq (b-a)\frac{f(a)+f(b)}{2}
+  \int_a^b f(x)dx ~\simeq~ (b-a)\frac{f(a)+f(b)}{2}
   \label{daikei1}
 \end{equation}
 
@@ -131,7 +131,7 @@ $\Delta$を微小量として長方形の面積の和を計算し近似的な値
 そこで、積分区間$[a,b]$をn個の区間$[a_0,a_1],[a_1,a_2],...,[a_{n-1},a_n] (a_0=a,a_n=b)$
 に分割し、それぞれで台形公式を適用しその和で面積を近似計算する(式\ref{daikei2})。
 \begin{equation}
-  \int_a^b f(x) \simeq \sum_{k=1}^{n} (a_k-a_{k-1})\frac{f(a_{k-1})+f(a_k)}{2}
+  \int_a^b f(x) ~\simeq~ \sum_{k=1}^{n} (a_k-a_{k-1})\frac{f(a_{k-1})+f(a_k)}{2}
   \label{daikei2}
 \end{equation}
 
@@ -156,7 +156,7 @@ $g(x)$は$f(x)$の点$a,m,b~(m=(a+b)/2)$におけるラグランジュ補完に�
 ガウスの数値積分公式とは、nを正の整数とし、$f(x)$の[-1,1]の積分を
 式\ref{gauss1}の形で近似する公式のことである。
 \begin{equation}
-  \int_{-1}^{1} \simeq \sum_{i=1}^{n} w_i f(x_i)
+  \int_{-1}^{1}f(x)dx ~\simeq~ \sum_{i=1}^{n} w_i f(x_i)
   \label{gauss1}
 \end{equation}
 ここで、$x_i$は積分点またはガウス点と呼ばれる[-1,1]内のn個の点であり、
