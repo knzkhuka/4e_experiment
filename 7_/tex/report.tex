@@ -158,11 +158,14 @@ $f(x)$が$2n-1$次を超える多項式関数または、多項式関数では�
 \end{eqnarray}
 から、
 \begin{eqnarray}
-  \int_a^b f(x)dx ~&=&~ \int_{-1}^{1} f(t)dt \\
-  &=&~ \frac{b-a}{2}\int_{-1}^{1} f(\frac{a+b}{2} + \frac{b-a}{2}x)dx
+  \int_a^b f(x)dx ~&=&~ \int_{-1}^{1} f(t)dt \nonumber\\
+  &=&~ \frac{b-a}{2} \int_{-1}^{1} f(\frac{a+b}{2} + \frac{b-a}{2}x)dx \\
+  &=&~ \frac{b-a}{2} \sum_{i=1}^{n} w_i f(\frac{b-a}{2}x_i + \frac{a+b}{2})
   \label{gauss2}
 \end{eqnarray}
 と変形できる。
+
+
 
 \section{結果と考察}
 
