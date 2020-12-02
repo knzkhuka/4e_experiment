@@ -451,6 +451,8 @@ $N=3$で正確に値を求めることが出来ている。
 
 $N=8$で15桁まで正確に計算出来ていることがわかる。
 しかし23桁全てを正確に求めることはできなかった。
+これは2進数では10進数の小数を近似的にしか得られないためだと考えられる。
+Pythonのfloat型では一つの演算当たり$\displaystyle \frac{1}{2^{53}}$
 
 以上のことから、ガウスの数値積分公式で定積分の値を求めることができることがわかった。
 
@@ -463,6 +465,8 @@ $N=8$で15桁まで正確に計算出来ていることがわかる。
   \url{https://ja.wikipedia.org/wiki/%E3%82%AC%E3%82%A6%E3%82%B9%E6%B1%82%E7%A9%8D}
   \bibitem{数値解析 加古富志雄 令和元年 5 月 27 日}
   \url{https://www.ics.nara-wu.ac.jp/~kako/teaching/na/chap6.pdf}
+  \bibitem{15. 浮動小数点演算、その問題と制限}
+  \url{https://docs.python.org/ja/3/tutorial/floatingpoint.html}
 
 \end{thebibliography}
 \end{document}
