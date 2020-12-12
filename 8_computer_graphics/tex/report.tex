@@ -102,7 +102,7 @@ findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST�
 入れ子構造になっている輪郭のもっとも外側の輪郭のみを検出するRETR\_EXTERNALなどを指定する。
 第三引数では、全ての点を検出するCHAIN\_APPROX\_NONE、冗長な点を削除するCHAIN\_APPROX\_SIMPLE等を指定する。
 
-\begin{figure}
+\begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
     \begin{center}
       \includegraphics[width=0.9\hsize]{../pic/contour1_list.png}
@@ -119,9 +119,10 @@ findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST�
   \end{minipage}
 \end{figure}
 
-
 図\ref{fig:contour_list}に、findContoursの第二引数にRETR\_LISTを指定したもの、
 図\ref{fig:contour_external}に、RETR\_EXTERNALを指定したものを示す。
+図\ref{fig:contour_external}では、図\ref{fig:contour_list}では描画されていた
+顔の中の輪郭などが検出されていないことがわかる。
 
 
 \subsection{フィルタ処理}
