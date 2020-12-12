@@ -82,13 +82,13 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
   \label{fig:grayscale}
 \end{figure}
 
+\newpage
 \subsection{輪郭検出}
 
 輪郭とは、同じ色などについて境界に沿った連続する点をつなげることによって
 形成される曲線のことである。
 精度よく輪郭を検出するために、二値化画像を使用する。
 以下のコードで輪郭を検出し、元画像に描画することが出来る。
-\newpage
 \begin{lstlisting}
   import cv2
   img = cv2.imread('tapu.jpg')
@@ -101,6 +101,22 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
 findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST、
 入れ子構造になっている輪郭のもっとも外側の輪郭のみを検出するRETR\_EXTERNALなどを指定する。
 第三引数では、全ての点を検出するCHAIN\_APPROX\_NONE、冗長な点を削除するCHAIN\_APPROX\_SIMPLE等を指定する。
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\hsize]{../pic/contour1_list.png}
+  \caption{RETR\_LISTで指定した場合}
+  \label{fig:contour_list}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\hsize]{../pic/contour1_external.png}
+  \caption{RETR\_EXTERNALで指定した場合}
+  \label{fig:contour_external}
+\end{figure}
+
+図\ref{fig:contour_list}に、findContoursの第二引数にRETR\_LISTを指定したもの、
+図\ref{fig:contour_external}に、RETR\_EXTERNALを指定したものを示す。
 
 
 \subsection{フィルタ処理}
