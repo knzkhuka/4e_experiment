@@ -72,6 +72,16 @@ pythonのopencvではcv2.thresholdという関数で画像の二値化を行う�
 第1引数に入力画像、第2引数に閾値、第3引数は閾値以上の値を持つ画素に
 割り当てられる値、第4引数にいくつかある閾値処理のどれを使用するかのフラグを受け取る。
 返り値は2つあり、使用した閾値と、二値化を適用した画像である。
+入力画像はグレースケール画像でなければならず、画像を読み込むときに
+imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}のように
+グレースケール画像として読み込むことが出来る。
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/grayscale.png}
+  \caption{グレースケール画像}
+  \label{fig:grayscale}
+\end{figure}
+
 
 
 \subsection{輪郭検出}
