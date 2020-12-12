@@ -82,13 +82,13 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
   \label{fig:grayscale}
 \end{figure}
 
-\newpage
 \subsection{輪郭検出}
 
 輪郭とは、同じ色などについて境界に沿った連続する点をつなげることによって
 形成される曲線のことである。
 精度よく輪郭を検出するために、二値化画像を使用する。
 以下のコードで輪郭を検出し、元画像に描画することが出来る。
+\newpage
 \begin{lstlisting}
   import cv2
   img = cv2.imread('tapu.jpg')
