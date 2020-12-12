@@ -68,7 +68,7 @@
   \label{fig:binarization}
 \end{figure}
 
-pythonのopencvではcv2.thresholdという関数で画像の二値化を行うことが出来る。
+pythonのopencvではthresholdという関数で画像の二値化を行うことが出来る。
 第1引数に入力画像、第2引数に閾値、第3引数は閾値以上の値を持つ画素に
 割り当てられる値、第4引数にいくつかある閾値処理のどれを使用するかのフラグを受け取る。
 返り値は2つあり、使用した閾値と、二値化を適用した画像である。
@@ -83,9 +83,24 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
 \end{figure}
 
 
-
 \subsection{輪郭検出}
 
+輪郭とは、同じ色などについて境界に沿った連続する点をつなげることによって
+形成される曲線のことである。
+精度よく輪郭を検出するために、二値化画像を使用する。
+以下のコードで輪郭を検出し、元画像に描画することが出来る。
+\begin{lstlisting}
+  import cv2
+  img = cv2.imread('tapu.jpg')
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  ret, img_thres = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU)
+  img_cont, contours, hierarchy = cv2.findContours(img_thres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+  cv2.drawContours(img, contours, -1, color=(0, 0, 255), thickness=2)
+\end{lstlisting}
+
+findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST、
+入れ子構造になっている輪郭のもっとも外側の輪郭のみを検出するRETR\_EXTERNALなどを指定する。
+第三引数では、全ての点を検出するCHAIN\_APPROX\_NONE、冗長な点を削除するCHAIN\_APPROX\_SIMPLE等を指定する。
 
 
 \subsection{フィルタ処理}
@@ -105,5 +120,9 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
   \bibitem{1} OpenCV-Python チュートリアル文書
   
   \url{http://labs.eecs.tottori-u.ac.jp/sd/Member/oyamada/OpenCV/html/index.html}
+  
+  \bibitem{2} OpenCV / findContours を使用して画像中のオブジェクトの輪郭を検出する方法
+  
+  \url{https://axa.biopapyrus.jp/ia/opencv/detect-contours.html}
 \end{thebibliography}
 \end{document}
