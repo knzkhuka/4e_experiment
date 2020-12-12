@@ -56,17 +56,22 @@
 
 \section{実装方法}
 
-\subsection{画像の2値化}
+\subsection{画像の二値化}
 
-画像の2値化とは、画素の特定の要素において閾値を与え、
+画像の二値化とは、画素の特定の要素において閾値を与え、
 0か1に分類することである。
 二値化された画像は、図\ref{fig:binarization}のように白黒画像なる。
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/binarization.jpg}
-  \caption{大津の2値化を適用した図\ref{fig:tapu}}
+  \caption{大津の二値化を適用した図\ref{fig:tapu}}
   \label{fig:binarization}
 \end{figure}
+
+pythonのopencvではcv2.thresholdという関数で画像の二値化を行うことが出来る。
+第1引数に入力画像、第2引数に閾値、第3引数は閾値以上の値を持つ画素に
+割り当てられる値、第4引数にいくつかある閾値処理のどれを使用するかのフラグを受け取る。
+返り値は2つあり、使用した閾値と、二値化を適用した画像である。
 
 
 \subsection{輪郭検出}
@@ -87,8 +92,8 @@
 
 
 \begin{thebibliography}{10}
-  \bibitem{1} 
+  \bibitem{1} OpenCV-Python チュートリアル文書
   
-  \url{}
+  \url{http://labs.eecs.tottori-u.ac.jp/sd/Member/oyamada/OpenCV/html/index.html}
 \end{thebibliography}
 \end{document}
