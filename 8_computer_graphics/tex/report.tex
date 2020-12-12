@@ -68,7 +68,7 @@
   \label{fig:binarization}
 \end{figure}
 
-pythonのopencvではthresholdという関数で画像の二値化を行うことが出来る。
+pythonのOpenCVではthresholdという関数で画像の二値化を行うことが出来る。
 第1引数に入力画像、第2引数に閾値、第3引数は閾値以上の値を持つ画素に
 割り当てられる値、第4引数にいくつかある閾値処理のどれを使用するかのフラグを受け取る。
 返り値は2つあり、使用した閾値と、二値化を適用した画像である。
@@ -127,6 +127,34 @@ findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST�
 
 \subsection{フィルタ処理}
 
+画像に対してローパスフィルタ(LPF)やハイパスフィルタ(HPF)による
+フィルタリングをすることが出来る。
+LPFではノイズの除去や画像のぼかしが、
+HPFではエッジの強調ができる。
+
+filter2D関数は、入力画像とカーネル(フィルタ)の畳み込みを計算する。
+式\ref{fomula:kernel}は、画像の平滑化を表す。
+\begin{eqnarray}
+  K ~=~ \frac{1}{25}
+  \left[
+    \begin{array}{rrrrr}
+      1&1&1&1&1\\
+      1&1&1&1&1\\
+      1&1&1&1&1\\
+      1&1&1&1&1\\
+      1&1&1&1&1
+    \end{array}
+  \right]
+  \label{fomula:kernel}
+\end{eqnarray}
+
+式\ref{fomula:kernel}を使ったフィルタリングを行うと、
+各画素に対してその画素を中心に$5\times5$の画素を選択し、
+その合計を25で割ったものを出力画像でのその画素の値にすることが出来る。
+
+OpenCVではエッジ検出が出来るCannyや、
+エッジを劣化させずに平滑化できるbilatetalFilterなど
+多くのフィルタが利用できる。
 
 
 \subsection{自動検出によるマスク処理}
@@ -145,6 +173,6 @@ findContoursの第二引数には、全ての輪郭を同等に扱うRETR\_LIST�
   
   \bibitem{2} OpenCV / findContours を使用して画像中のオブジェクトの輪郭を検出する方法
   
-  \url{https://axa.biopapyrus.jp/ia/opencv/detect-contours.html}
+  \url{https://axa.biopapyrus.jp/ia/OpenCV/detect-contours.html}
 \end{thebibliography}
 \end{document}
