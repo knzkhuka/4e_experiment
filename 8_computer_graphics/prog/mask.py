@@ -2,13 +2,12 @@ import cv2
 import numpy as np
 
 img = cv2.imread('tapu.jpg')
-cv2.imwrite('../pic/tapu.png', img)
 img_cpy = img.copy()
 img_cpy2 = img.copy()
 img_cpy3 = img.copy()
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-ret, img_thres = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU)
+ret, img_thres = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)
 img_cont, contours, hierarchy = cv2.findContours(img_thres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 n_contours = list(filter(lambda x: cv2.contourArea(x) > 100000, contours))
 
@@ -31,9 +30,9 @@ cv2.imshow('tapu blackback', img_cpy)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-cv2.imwrite('../pic/contour_large.png', img_cpy3)
-cv2.imwrite('../pic/silhouette.png', mask)
-cv2.imwrite('../pic/tapu_bb.png', img_cpy)
+#cv2.imwrite('../pic/contour_large.png', img_cpy3)
+#cv2.imwrite('../pic/silhouette.png', mask)
+#cv2.imwrite('../pic/tapu_bb.png', img_cpy)
 
 """
 hsv = cv2.cvtColor(img_cpy, cv2.COLOR_BGR2HSV_FULL)
