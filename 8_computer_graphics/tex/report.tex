@@ -61,12 +61,6 @@
 画像の二値化とは、画素の特定の要素において閾値を与え、
 0か1に分類することである。
 二値化された画像は、図\ref{fig:binarization}のように白黒画像なる。
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\hsize]{../pic/binarization.jpg}
-  \caption{大津の二値化を適用した図\ref{fig:tapu}}
-  \label{fig:binarization}
-\end{figure}
 
 pythonのOpenCVではthresholdという関数で画像の二値化を行うことが出来る。
 第1引数に入力画像、第2引数に閾値、第3引数は閾値以上の値を持つ画素に
@@ -76,11 +70,20 @@ pythonのOpenCVではthresholdという関数で画像の二値化を行うこ�
 imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}のように
 グレースケール画像として読み込むことが出来る。
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\hsize]{../pic/grayscale.png}
-  \caption{グレースケール画像}
-  \label{fig:grayscale}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/binarization.jpg}
+    \caption{大津の二値化を適用した図\ref{fig:tapu}}
+    \label{fig:binarization}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/grayscale.png}
+    \caption{グレースケール画像}
+    \label{fig:grayscale}
+  \end{minipage}
 \end{figure}
+
 
 \newpage
 \subsection{輪郭検出}
