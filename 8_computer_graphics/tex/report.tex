@@ -85,7 +85,6 @@ imread(name,0)のように第2引数に0を与えると図\ref{fig:grayscale}の
 \end{figure}
 
 
-\newpage
 \subsection{輪郭検出}
 
 輪郭とは、同じ色などについて境界に沿った連続する点をつなげることによって
@@ -160,7 +159,7 @@ OpenCVではエッジ検出が出来るCannyや、
 多くのフィルタが利用できる。
 
 
-\subsection{自動検出によるマスク処理}
+\subsection{マスク処理}
 
 読み込んだ画像は通常、画素ごとに[G,B,R]のarrayでデータを持つ。
 これに対して図\ref{fig:mask1}のようなマスク画像を用意し
@@ -188,10 +187,18 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 表されるためどんな値とandをとっても[0,0,0]つまり
 黒になってしまうためである。
 
-\newpage
+
 \section{結果と考察}
 
+\subsection{輪郭検出}
 
+
+
+\subsection{フィルタ処理}
+
+
+
+\subsection{自動検出によるマスク処理}
 
 \begin{thebibliography}{10}
   \bibitem{1} OpenCV-Python チュートリアル文書
