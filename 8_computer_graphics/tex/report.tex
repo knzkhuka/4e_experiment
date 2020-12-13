@@ -159,6 +159,25 @@ OpenCVではエッジ検出が出来るCannyや、
 
 \subsection{自動検出によるマスク処理}
 
+読み込んだ画像は通常、画素ごとに[G,B,R]のarrayでデータを持つ。
+これに対して図\ref{fig:mask1}のようなマスク画像を用意し
+bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成できる。
+
+\begin{figure}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/black.jpg}
+    \caption{マスク画像}
+    \label{fig:mask1}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/tapu_icon.jpg}
+    \caption{bitwise\_andを撮った画像}
+    \label{fig:masked1}
+  \end{minipage}
+\end{figure}
+
 
 
 
