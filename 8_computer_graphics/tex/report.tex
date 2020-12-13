@@ -193,6 +193,10 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 \subsection{輪郭検出}
 
 以下のコードによって輪郭検出をし描画したものを図\ref{fig:contour}に示す。
+6行目の処理ではcontourAreaという関数によって検出した輪郭の面積が
+小さいものはリムーブするようにしている。
+これによって図\ref{fig:contour_external}で見られた
+あご周辺や髪先での点が消えていることがわかる。
 
 \begin{lstlisting}
   import cv2
@@ -209,6 +213,16 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   \includegraphics[width=0.7\hsize]{../pic/contour2.png}
   \caption{面積100以上の領域のみ輪郭検出}
   \label{fig:contour}
+\end{figure}
+
+次に、画像の二値化の閾値を大津のアルゴリズムによる自動決定から手動で
+設定したものを図\ref{fig:contour2}に示す。
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/contour3.png}
+  \caption{手動で二値化をして輪郭検出をしたもの}
+  \label{fig:contour2}
 \end{figure}
 
 \subsection{フィルタ処理}
