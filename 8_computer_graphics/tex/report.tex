@@ -192,6 +192,7 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 
 \subsection{輪郭検出}
 
+以下のコードによって輪郭検出をし描画したものを図\ref{fig:contour}に示す。
 
 \begin{lstlisting}
   import cv2
@@ -199,6 +200,7 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
   ret, img_thres = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU)
   img_cont, contours, hierarchy = cv2.findContours(img_thres, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+  contours = list(filter(lambda x: cv2.contourArea(x) > 100, contours))
   cv2.drawContours(img, contours, -1, color=(0, 0, 255), thickness=2)
 \end{lstlisting}
 
@@ -206,7 +208,7 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   \centering
   \includegraphics[width=0.7\hsize]{../pic/contour2.png}
   \caption{面積100以上の領域のみ輪郭検出}
-  \label{fig:contour3}
+  \label{fig:contour}
 \end{figure}
 
 \subsection{フィルタ処理}
