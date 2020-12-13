@@ -163,7 +163,7 @@ OpenCVではエッジ検出が出来るCannyや、
 これに対して図\ref{fig:mask1}のようなマスク画像を用意し
 bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成できる。
 
-\begin{figure}
+\begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
     \centering
     \includegraphics[width=0.9\hsize]{../pic/black.jpg}
@@ -173,14 +173,19 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   \begin{minipage}{0.5\hsize}
     \centering
     \includegraphics[width=0.9\hsize]{../pic/tapu_icon.jpg}
-    \caption{bitwise\_andを撮った画像}
+    \caption{bitwise\_andを行った画像}
     \label{fig:masked1}
   \end{minipage}
 \end{figure}
 
+これはマスク画像の白い部分の画素は
+[0b11111111,0b11111111,0b11111111]で表されるため、
+どんな画素とandをとっても元の画像の値が残り、
+逆に、黒い部分は[0b00000000,0b00000000,0b00000000]で
+表されるためどんな値とandをとっても[0,0,0]つまり
+黒になってしまうためである。
 
-
-
+\newpage
 \section{結果と考察}
 
 
