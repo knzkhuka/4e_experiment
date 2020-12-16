@@ -235,6 +235,25 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 
 \subsection{フィルタ処理}
 
+式\ref{fomula:kernel}によって平滑化したものを図\ref{fig:smoothing}に示す。
+図\ref{fig:tapu}と比べてぼやけているのがわかる。
+次に、Canny関数を利用してエッジ検出をしたした画像を図\ref{fig:canny1}に示す。
+
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/smoothing.png}
+    \caption{平滑化した画像}
+    \label{fig:smoothing}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/canny1.png}
+    \caption{エッジ検出した画像}
+    \label{fig:canny1}
+  \end{minipage}
+\end{figure}
 
 
 \subsection{自動検出によるマスク処理}
