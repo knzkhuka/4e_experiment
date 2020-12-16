@@ -282,9 +282,14 @@ drawContours関数はthicknesの値に負の数を指定すると輪郭の
 内側を指定した色で塗りつぶすことが出来る。
 これを使い元画像をコピーした画像の背景を塗りつぶす。
 
-その領域を黒で塗りつぶしたもの
-を二値化したものをマスク画像とし、
-元画像とbitwise\_andをとった。
+この塗りつぶされた画像の黒い部分のみを検出した二値化画像が
+マスク画像になる。
+黒い部分の抽出はinRange関数によって画素の値を[0,0,0]から[1,1,1]まで
+のように指定して抽出する。
+こうして作成したものを図\ref{fig:mask}に示す。
+
+図\ref{fig:tapu}と図\ref{fig:masked1}のbitwise\_andをとった
+画像を図\ref{fig:masked1}に示す。
 
 \begin{figure}[H]
   \centering
@@ -315,5 +320,9 @@ drawContours関数はthicknesの値に負の数を指定すると輪郭の
   \bibitem{2} OpenCV / findContours を使用して画像中のオブジェクトの輪郭を検出する方法
 
   \url{https://axa.biopapyrus.jp/ia/OpenCV/detect-contours.html}
+
+  \bibitem{3} 描画関数
+
+  \url{http://opencv.jp/opencv-2svn/py/core_drawing_functions.html}
 \end{thebibliography}
 \end{document}
