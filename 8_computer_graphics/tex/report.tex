@@ -271,21 +271,26 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 \newpage
 \subsection{自動検出によるマスク処理}
 
-\begin{figure}[htbp]
+輪郭検出をして領域面積が100000以上のもののみ残して
+その領域を黒で塗りつぶしたもの
+を二値化したものをマスク画像とし、
+元画像とbitwise\_andをとった。
+
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/contour_large.png}
   \caption{面積10000以上の領域のみの輪郭}
   \label{fig:contour_large}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/silhouette.png}
   \caption{マスク画像}
   \label{fig:mask}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/tapu_bb.png}
   \caption{背景を自動検出してマスク処理を行った画像}
