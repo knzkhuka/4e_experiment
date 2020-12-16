@@ -209,11 +209,20 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 \end{lstlisting}
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\hsize]{../pic/contour2.png}
-  \caption{面積100以上の領域のみ輪郭検出}
-  \label{fig:contour}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.9\hsize]{../pic/contour2.png}
+    \caption{面積100以上の領域のみ輪郭検出}
+    \label{fig:contour}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[width=0.7\hsize]{../pic/contour3.png}
+    \caption{手動で二値化をして輪郭検出をしたもの}
+    \label{fig:contour2}
+  \end{minipage}
 \end{figure}
+
 
 次に、画像の二値化の閾値を大津のアルゴリズムによる自動決定から手動で
 設定したものを図\ref{fig:contour2}に示す。
@@ -221,13 +230,8 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 髪が検出できている。
 これは大津の二値化では髪やマフラーがすべて閾値以下に判断されてしまい、
 塗りつぶされてしまったためである。
+K 
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\hsize]{../pic/contour3.png}
-  \caption{手動で二値化をして輪郭検出をしたもの}
-  \label{fig:contour2}
-\end{figure}
 
 \subsection{フィルタ処理}
 
