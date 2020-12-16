@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.7.1-161114-2.6 (utf8.euc) (TeX Live 2017/Debian) (preloaded format=platex 2020.6.30)  13 DEC 2020 20:39
+This is e-pTeX, Version 3.14159265-p3.7.1-161114-2.6 (utf8.euc) (TeX Live 2017/Debian) (preloaded format=platex 2020.6.30)  16 DEC 2020 22:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -390,24 +390,42 @@ File: ../pic/contour2.png Graphic file (type bmp)
 <../pic/contour2.png>
 File: ../pic/contour3.png Graphic file (type bmp)
 <../pic/contour3.png>
- [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 247.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 247.
+
+Overfull \hbox (2.2222pt too wide) in paragraph at lines 212--224
+[][]$[]$[] []$[]$[] 
+ []
+
+File: ../pic/smoothing.png Graphic file (type bmp)
+<../pic/smoothing.png>
+File: ../pic/canny1.png Graphic file (type bmp)
+<../pic/canny1.png>
+File: ../pic/canny2.png Graphic file (type bmp)
+<../pic/canny2.png>
+[4] [5]
+File: ../pic/contour_large.png Graphic file (type bmp)
+<../pic/contour_large.png>
+File: ../pic/silhouette.png Graphic file (type bmp)
+<../pic/silhouette.png>
+File: ../pic/tapu_bb.png Graphic file (type bmp)
+<../pic/tapu_bb.png>
+ [6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 329.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 329.
  (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 247.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 247.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 329.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 329.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 7DB034E63BA5B6DE68EB37F0B7017E47;680.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 247.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 329.
  ) 
 Here is how much of TeX's memory you used:
- 6727 strings out of 493640
- 97859 string characters out of 6150528
- 214794 words of memory out of 5000000
- 10278 multiletter control sequences out of 15000+600000
+ 6752 strings out of 493640
+ 98329 string characters out of 6150528
+ 216036 words of memory out of 5000000
+ 10297 multiletter control sequences out of 15000+600000
  12485 words of font info for 60 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  28i,12n,32p,201b,1719s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.dvi (5 pages, 20056 bytes).
+Output written on report.dvi (7 pages, 27208 bytes).

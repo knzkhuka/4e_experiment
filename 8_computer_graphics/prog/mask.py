@@ -16,7 +16,7 @@ cv2.drawContours(img_cpy2, contours, -1, color=(0, 0, 255), thickness=2)
 cv2.drawContours(img_cpy3, n_contours, -1, color=(0, 255, 0), thickness=3)
 
 black_min = np.array([0, 0, 0], np.uint8)
-black_max = np.array([10, 10, 10], np.uint8)
+black_max = np.array([1, 1, 1], np.uint8)
 mask = cv2.inRange(img_cpy, black_min, black_max)
 mask = cv2.bitwise_not(mask)
 mask_rgb = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
