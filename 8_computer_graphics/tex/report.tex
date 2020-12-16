@@ -256,15 +256,22 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 この問題を解決するためには通常、画像の平滑化を行う。
 図\ref{fig:smoothing}をCanny関数の引数として与えたものを
 図\ref{fig:canny2}に示す。
-この図から背景のノイズ
+この図から画像の平滑化をすることによってノイズを削除することが出来るという事がわかる。
+なぜ平滑化をするとエッジ検出でのノイズが少なくなるかというのは、
+エッジ検出は画素の値の不連続性を検出するものであるため、
+平滑化を行うことで各画素の近傍との差が小さくなるため不連続性が小さくなるのだと考えられる。
+
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/canny2.png}
-  \caption{平滑化してから得次検出をした画像}
+  \caption{平滑化してからエッジ検出をした画像}
   \label{fig:canny2}
 \end{figure}
 
 \subsection{自動検出によるマスク処理}
+
+
 
 \begin{thebibliography}{10}
   \bibitem{1} OpenCV-Python チュートリアル文書
