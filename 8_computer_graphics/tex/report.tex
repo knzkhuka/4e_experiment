@@ -261,7 +261,6 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 エッジ検出は画素の値の不連続性を検出するものであるため、
 平滑化を行うことで各画素の近傍との差が小さくなるため不連続性が小さくなるのだと考えられる。
 
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\hsize]{../pic/canny2.png}
@@ -269,9 +268,29 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   \label{fig:canny2}
 \end{figure}
 
+\newpage
 \subsection{自動検出によるマスク処理}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/contour_large.png}
+  \caption{面積10000以上の領域のみの輪郭}
+  \label{fig:contour_large}
+\end{figure}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/silhouette.png}
+  \caption{マスク画像}
+  \label{fig:mask}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/tapu_bb.png}
+  \caption{背景を自動検出してマスク処理を行った画像}
+  \label{fig:masked}
+\end{figure}
 
 \begin{thebibliography}{10}
   \bibitem{1} OpenCV-Python チュートリアル文書
