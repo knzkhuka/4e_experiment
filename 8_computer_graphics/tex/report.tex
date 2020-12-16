@@ -238,21 +238,31 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 式\ref{fomula:kernel}によって平滑化したものを図\ref{fig:smoothing}に示す。
 図\ref{fig:tapu}と比べてぼやけているのがわかる。
 次に、Canny関数を利用してエッジ検出をしたした画像を図\ref{fig:canny1}に示す。
-
+エッジが検出されているが背景に多くのノイズが検出されてしまっていることがわかる。
 
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\hsize]{../pic/smoothing.png}
-    \caption{平滑化した画像}
-    \label{fig:smoothing}
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/smoothing.png}
+  \caption{平滑化した画像}
+  \label{fig:smoothing}
 \end{figure}
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.9\hsize]{../pic/canny1.png}
-    \caption{エッジ検出した画像}
-    \label{fig:canny1}
+  \includegraphics[width=0.7\hsize]{../pic/canny1.png}
+  \caption{エッジ検出した画像}
+  \label{fig:canny1}
 \end{figure}
 
+この問題を解決するためには通常、画像の平滑化を行う。
+図\ref{fig:smoothing}をCanny関数の引数として与えたものを
+図\ref{fig:canny2}に示す。
+この図から背景のノイズ
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{../pic/canny2.png}
+  \caption{平滑化してから得次検出をした画像}
+  \label{fig:canny2}
+\end{figure}
 
 \subsection{自動検出によるマスク処理}
 
