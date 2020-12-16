@@ -140,13 +140,13 @@ filter2D関数は、入力画像とカーネル(フィルタ)の畳み込みを�
   K ~=~ \frac{1}{25}
   \left[
     \begin{array}{rrrrr}
-      1&1&1&1&1\\
-      1&1&1&1&1\\
-      1&1&1&1&1\\
-      1&1&1&1&1\\
-      1&1&1&1&1
+      1 & 1 & 1 & 1 & 1 \\
+      1 & 1 & 1 & 1 & 1 \\
+      1 & 1 & 1 & 1 & 1 \\
+      1 & 1 & 1 & 1 & 1 \\
+      1 & 1 & 1 & 1 & 1
     \end{array}
-  \right]
+    \right]
   \label{fomula:kernel}
 \end{eqnarray}
 
@@ -217,7 +217,7 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
   \end{minipage}
   \begin{minipage}{0.5\hsize}
     \centering
-    \includegraphics[width=0.7\hsize]{../pic/contour3.png}
+    \includegraphics[width=0.9\hsize]{../pic/contour3.png}
     \caption{手動で二値化をして輪郭検出をしたもの}
     \label{fig:contour2}
   \end{minipage}
@@ -230,8 +230,8 @@ bitwise\_andをとると、図\ref{fig:masked1}のような画像が生成でき
 髪が検出できている。
 これは大津の二値化では髪やマフラーがすべて閾値以下に判断されてしまい、
 塗りつぶされてしまったためである。
-K 
-
+大津の二値化では閾値が195になっていたのを180まで下げることによって一部髪の
+輪郭も検出が出来るようになった。
 
 \subsection{フィルタ処理}
 
@@ -241,11 +241,11 @@ K
 
 \begin{thebibliography}{10}
   \bibitem{1} OpenCV-Python チュートリアル文書
-  
+
   \url{http://labs.eecs.tottori-u.ac.jp/sd/Member/oyamada/OpenCV/html/index.html}
-  
+
   \bibitem{2} OpenCV / findContours を使用して画像中のオブジェクトの輪郭を検出する方法
-  
+
   \url{https://axa.biopapyrus.jp/ia/OpenCV/detect-contours.html}
 \end{thebibliography}
 \end{document}
