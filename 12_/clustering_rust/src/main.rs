@@ -38,6 +38,7 @@ impl Unionfind {
       k_root
     }
   }
+  #[warn(dead_code)]
   fn same(&mut self, u: usize, v: usize) -> bool {
     self.root(u) == self.root(v)
   }
@@ -59,7 +60,7 @@ impl Unionfind {
     let mut roots: Vec<usize> = Vec::new();
     for i in 0..self.par.len() {
       if i == self.par[i] {
-        roots.push(i)
+        roots.push(i);
       }
     }
     roots
@@ -116,19 +117,19 @@ fn main() {
   edges.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
   // クラスタ数を変えるときはここを変える
-  let m = 3;
+  let m = 2;
 
   let mut uni = Unionfind::new(n);
-  for (cost, u, v) in edges {
+  for (_, u, v) in edges {
     if uni.tree_count == m {
       break;
     }
     uni.unite(u, v);
   }
-  let R = uni.root_set();
+  let r_st = uni.root_set();
 
   let mut clusters: Vec<Vec<usize>> = Vec::new();
-  for r in R {
+  for r in r_st {
     clusters.push(uni.group(r));
   }
   assert_eq!(clusters.len(), m);
@@ -144,7 +145,7 @@ fn main() {
         dat_x.push(data[*j].x);
         dat_y.push(data[*j].y);
       }
-      x.points(&dat_x, &dat_y, &[Color(colors[i])]);
+      x.points(&dat_x, &dat_y, &[Color(colors[i % 4])]);
     }
   }
   fg.set_terminal("png", "plot.png");
