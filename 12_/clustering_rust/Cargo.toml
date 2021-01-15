@@ -1,0 +1,12 @@
+[package]
+name = "clustering_rust"
+version = "0.1.0"
+authors = ["knzkhuka <one235813@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+proconio = "0.4.1"
+csv = "1.1"
+gnuplot = "0.0.37"
