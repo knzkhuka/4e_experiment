@@ -1,3 +1,5 @@
+// /https://github.com/knzkhuka/4e_experiment/tree/main/12_/clustering_rust
+
 use gnuplot::{Caption, Color, Figure};
 use std::error::Error;
 use std::io;
@@ -112,7 +114,10 @@ fn main() {
     }
   }
   edges.sort_by(|a, b| a.partial_cmp(b).unwrap());
-  let m = 2;
+
+  // クラスタ数を変えるときはここを変える
+  let m = 3;
+
   let mut uni = Unionfind::new(n);
   for (cost, u, v) in edges {
     if uni.tree_count == m {
