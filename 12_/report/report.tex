@@ -110,7 +110,51 @@ $d = \sqrt{x^2 + y^2}$
 最初はN個の木(森)が存在し、このアルゴリズムが終了したときは1つの木だけが残っている。
 この手順の途中で木の数がkになったときにアルゴリズムを終了すると、
 k個のクラスタに分類することが出来ている。
+これを実装したものをソースコード\ref{code:rust_emst}に示す。
 
+
+\begin{lstlisting}[caption=Rustによる最短距離法の実装,label=code:rust_emst]
+  fn main() {
+    let mut data: Vec<Point> = Vec::new();
+    if let Err(err) = read(&mut data) {
+      println!("error running example: {}", err);
+      process::exit(1);
+    }
+    let n: usize = data.len();
+    let mut edges: Vec<(f64, usize, usize)> = Vec::new();
+    for i in 0..n {
+      for j in i..n {
+        edges.push((calc_dist(&data[i], &data[j]), i, j));
+      }
+    }
+    edges.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    let m = 2;
+    let mut uni = Unionfind::new(n);
+    for (_, u, v) in edges {
+      if uni.tree_count == m {
+        break;
+      }
+      uni.unite(u, v);
+    }
+    let r_st = uni.root_set();
+    let clusters: Vec<Vec<usize>> = r_st.into_iter().map(|r| uni.group(r)).collect::<Vec<Vec<_>>>();
+    let colors = ["red", "blue", "green", "black"];
+    let mut fg = Figure::new();
+    {
+      let x = fg.axes2d();
+      for i in 0..m {
+        let mut dat_x: Vec<f64> = Vec::new();
+        let mut dat_y: Vec<f64> = Vec::new();
+        for &j in &clusters[i] {
+          dat_x.push(data[j].x);
+          dat_y.push(data[j].y);
+        }
+        x.points(&dat_x, &dat_y, &[Color(colors[i % 4])]);
+      }
+    }
+    fg.show();
+  }
+\end{lstlisting}
 
 \subsection{多次元データの分類}
 
@@ -144,6 +188,18 @@ $\displaystyle d_{ab} = \sqrt{ \sum_{i=1}^{n}w_i(a_i - b_i)^2 }$
 そこへ元画像のファイルをコピーした。
 
 \section{結果と考察}
+
+\subsection{二次元データの分類}
+
+
+
+\subsection{多次元データの分類}
+
+
+
+\subsection{画像データの分類}
+
+
 
 \begin{thebibliography}{10}
   \bibitem{1}　クラスター分析の手法②（階層クラスター分析）

@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.7.1-161114-2.6 (utf8.euc) (TeX Live 2017/Debian) (preloaded format=platex 2020.6.30)  3 FEB 2021 17:17
+This is e-pTeX, Version 3.14159265-p3.7.1-161114-2.6 (utf8.euc) (TeX Live 2017/Debian) (preloaded format=platex 2020.6.30)  3 FEB 2021 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -341,32 +341,45 @@ LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
  [1
 
 ]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 116.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 116.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 116.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 116.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 116.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 117.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 117.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 117.
+ [2]
 Missing character: There is no ^^e2 in font cmr10!
 Missing character: There is no ^^91 in font cmr10!
 Missing character: There is no ^^a1 in font cmr10!
- [2]
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 151.
-LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 151.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 217.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 217.
 
 (./report.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 157.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 217.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 217.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 69110C3B727E34084265A654E1E6982E;523.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 157.
+(rerunfilecheck)             Checksum: 39189CCC5799297112F3ECD028B72E91;749.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 217.
  ) 
 Here is how much of TeX's memory you used:
- 6670 strings out of 493640
- 96888 string characters out of 6150528
- 184364 words of memory out of 5000000
- 10236 multiletter control sequences out of 15000+600000
- 11435 words of font info for 54 fonts, out of 8000000 for 9000
+ 6682 strings out of 493640
+ 97013 string characters out of 6150528
+ 255495 words of memory out of 5000000
+ 10247 multiletter control sequences out of 15000+600000
+ 12485 words of font info for 60 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 28i,6n,32p,201b,423s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,6n,32p,201b,1748s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.dvi (3 pages, 11424 bytes).
+Output written on report.dvi (4 pages, 20524 bytes).
