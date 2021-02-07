@@ -10,7 +10,7 @@ fn main() {
         process::exit(1);
     }
     let data = _data;
-    let m = 2;
+    let m = 3;
     let (mut cluser_set, mut cluster) = k_means(&data, m);
     let mut var = calc_varience(&data, &cluster, m);
     for _ in 0..1000 {
@@ -35,6 +35,9 @@ fn main() {
     {
         let ax = fig.axes2d();
         for i in 0..m {
+            if cluser_set[i].is_empty() {
+                continue;
+            }
             let mut dat_x = Vec::new();
             let mut dat_y = Vec::new();
             for p in &cluser_set[i] {
