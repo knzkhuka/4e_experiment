@@ -35,9 +35,6 @@ fn main() {
     {
         let ax = fig.axes2d();
         for i in 0..m {
-            if cluser_set[i].is_empty() {
-                continue;
-            }
             let mut dat_x = Vec::new();
             let mut dat_y = Vec::new();
             for p in &cluser_set[i] {
