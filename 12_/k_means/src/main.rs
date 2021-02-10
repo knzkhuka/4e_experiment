@@ -1,5 +1,5 @@
 use core::f64;
-use gnuplot::{Color, Figure};
+use gnuplot::{Color, Figure, PlotOption::Caption};
 use rand::Rng;
 use std::{error::Error, io, ops, process, usize};
 
@@ -10,10 +10,10 @@ fn main() {
         process::exit(1);
     }
     let data = _data;
-    let m = 2;
+    let m = 9;
     let (mut cluster_set, mut cluster) = k_means(&data, m);
     let mut var = calc_varience(&data, &cluster, m);
-    for _ in 0..10 {
+    for _ in 0..100 {
         let (ncluser_set, ncluster) = k_means(&data, m);
         let mut kinds = vec![0; m];
         for i in &ncluster {
@@ -29,33 +29,15 @@ fn main() {
             cluster = ncluster;
             cluster_set = ncluser_set;
         }
+
         let mut plot_cluster = cluster_set.clone();
         plot_cluster.push(calc_center(&data, &cluster, m));
         savefig(&plot_cluster, format!("{:.2}", nvar));
     }
     println!("cluster :{:?}", cluster);
-    let mut fig = Figure::new();
-    let colors = ["red", "blue", "orange", "green", "black"];
-    {
-        let ax = fig.axes2d();
-        for i in 0..m {
-            if cluster_set[i].is_empty() {
-                continue;
-            }
-            let mut dat_x = Vec::new();
-            let mut dat_y = Vec::new();
-            for p in &cluster_set[i] {
-                dat_x.push(p.x);
-                dat_y.push(p.y);
-            }
-            println!("\ncluster {}", i);
-            // println!("data x: {:?}", dat_x);
-            // println!("data y: {:?}", dat_y);
-            ax.points(&dat_x, &dat_y, &[Color(colors[i])]);
-        }
-    }
-    fig.set_terminal("png", "plot.png");
-    let _ = fig.show();
+    let mut plot_cluster = cluster_set.clone();
+    plot_cluster.push(calc_center(&data, &cluster, m));
+    savefig(&plot_cluster, "plot".to_string());
 }
 
 fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
@@ -77,21 +59,43 @@ fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
             // println!("\ncluster {}", i);
             // println!("data x: {:?}", dat_x);
             // println!("data y: {:?}", dat_y);
-            ax.points(&dat_x, &dat_y, &[Color(colors[i])]);
+            ax.points(
+                &dat_x,
+                &dat_y,
+                &[
+                    // Caption(&format!(
+                    //     "{}",
+                    //     if i + 1 == m {
+                    //         "center".to_string()
+                    //     } else {
+                    //         i.to_string()
+                    //     }
+                    // )),
+                    Color(colors[i % colors.len()]),
+                ],
+            );
         }
     }
-    fig.set_terminal("png", &format!("./plots/{}", filename).to_string()[..]);
+    fig.set_terminal("png", &format!("./plots/{}.png", filename).to_string()[..]);
     let _ = fig.show();
 }
 
 fn calc_varience(data: &Vec<Point>, cluster: &Vec<usize>, m: usize) -> f64 {
+    let n = data.len();
     let center = calc_center(data, cluster, m);
     let mut varience = vec![0.; m];
     let mut count = vec![0.; m];
-    for i in 0..cluster.len() {
-        let d = calc_dist(data[i], center[cluster[i]]);
-        varience[cluster[i]] += d * d;
+    let mut dmean = vec![0.; m];
+    for i in 0..n {
+        dmean[cluster[i]] += calc_dist(center[cluster[i]], data[i]);
         count[cluster[i]] += 1.;
+    }
+    for j in 0..m {
+        dmean[j] /= count[j];
+    }
+    for i in 0..n {
+        let d = calc_dist(data[i], center[cluster[i]]) - dmean[cluster[i]];
+        varience[cluster[i]] += d * d;
     }
     for i in 0..m {
         if count[i] != 0. {
@@ -108,7 +112,7 @@ fn k_means(data: &Vec<Point>, m: usize) -> (Vec<Vec<Point>>, Vec<usize>) {
         .into_iter()
         .map(|_| rng.gen_range(0..m))
         .collect::<Vec<_>>();
-    println!("first cluster {:?}", cluster);
+    // println!("first cluster {:?}", cluster);
     let mut center = calc_center(&data, &cluster, m);
     loop {
         let mut new_cluser = vec![0; n];
@@ -134,7 +138,7 @@ fn k_means(data: &Vec<Point>, m: usize) -> (Vec<Vec<Point>>, Vec<usize>) {
     for i in 0..n {
         cluster_set[cluster[i]].push(data[i]);
     }
-    println!("clustering result {:?}", cluster);
+    // println!("clustering result {:?}", cluster);
     (cluster_set, cluster)
 }
 fn calc_dist(a: Point, b: Point) -> f64 {
@@ -153,7 +157,7 @@ fn calc_center(data: &Vec<Point>, cluster: &Vec<usize>, m: usize) -> Vec<Point> 
         center[i].x /= count[i];
         center[i].y /= count[i];
     }
-    println!("{:?}", center);
+    // println!("{:?}", center);
     center
 }
 #[derive(Debug, Copy, Clone)]
