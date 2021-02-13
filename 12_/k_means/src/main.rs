@@ -32,7 +32,7 @@ fn main() {
 
         let mut plot_cluster = cluster_set.clone();
         plot_cluster.push(calc_center(&data, &cluster, m));
-        savefig(&plot_cluster, format!("{:.2}", nvar));
+        // savefig(&plot_cluster, format!("{:.2}", nvar));
     }
     println!("cluster :{:?}", cluster);
     let mut plot_cluster = cluster_set.clone();
