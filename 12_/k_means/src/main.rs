@@ -1,5 +1,5 @@
 use core::f64;
-use gnuplot::{Color, Figure, PlotOption::Caption};
+use gnuplot::{Color, Figure, Graph, PlotOption::Caption};
 use rand::Rng;
 use std::{error::Error, io, ops, process, usize};
 
@@ -10,7 +10,7 @@ fn main() {
         process::exit(1);
     }
     let data = _data;
-    let m = 9;
+    let m = 5;
     let (mut cluster_set, mut cluster) = k_means(&data, m);
     let mut var = calc_varience(&data, &cluster, m);
     for _ in 0..100 {
@@ -23,7 +23,7 @@ fn main() {
             continue;
         }
         let nvar = calc_varience(&data, &ncluster, m);
-        println!("var:{}", nvar);
+        // println!("var:{}", nvar);
         if nvar < var {
             var = nvar;
             cluster = ncluster;
@@ -34,10 +34,10 @@ fn main() {
         plot_cluster.push(calc_center(&data, &cluster, m));
         // savefig(&plot_cluster, format!("{:.2}", nvar));
     }
-    println!("cluster :{:?}", cluster);
+    // println!("cluster :{:?}", cluster);
     let mut plot_cluster = cluster_set.clone();
     plot_cluster.push(calc_center(&data, &cluster, m));
-    savefig(&plot_cluster, "plot".to_string());
+    savefig(&plot_cluster, "res".to_string());
 }
 
 fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
@@ -63,20 +63,21 @@ fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
                 &dat_x,
                 &dat_y,
                 &[
-                    // Caption(&format!(
-                    //     "{}",
-                    //     if i + 1 == m {
-                    //         "center".to_string()
-                    //     } else {
-                    //         i.to_string()
-                    //     }
-                    // )),
+                    Caption(&format!(
+                        "{}",
+                        if i + 1 == m {
+                            "center".to_string()
+                        } else {
+                            i.to_string()
+                        }
+                    )),
                     Color(colors[i % colors.len()]),
                 ],
             );
+            ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
         }
     }
-    fig.set_terminal("png", &format!("./plots/{}.png", filename).to_string()[..]);
+    fig.set_terminal("png", &format!("./{}.png", filename).to_string()[..]);
     let _ = fig.show();
 }
 
