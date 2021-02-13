@@ -34,10 +34,10 @@ fn main() {
         println!("error running example: {}", err);
         process::exit(1);
     }
-    let m = 2;
+    let m = 9;
     let cluster_set = group_average_method(data, m);
     let center = calc_center(&cluster_set, m);
-    let colors = ["red", "blue", "green", "black", "orange", "yellow"];
+    let colors = ["red", "blue", "green", "black", "orange"];
     let mut fig = Figure::new();
     {
         let ax = fig.axes2d();
@@ -49,7 +49,14 @@ fn main() {
                 dat_x.push(point.x);
                 dat_y.push(point.y);
             }
-            ax.points(&dat_x, &dat_y, &[Caption(&i.to_string()), Color(colors[i])]);
+            ax.points(
+                &dat_x,
+                &dat_y,
+                &[
+                    // Caption(&i.to_string()),
+                    Color(colors[i]),
+                ],
+            );
             i += 1;
             i %= colors.len();
         }
@@ -60,9 +67,16 @@ fn main() {
                 dat_x.push(point.x);
                 dat_y.push(point.y);
             }
-            ax.points(&dat_x, &dat_y, &[Caption("center"), Color(colors[i])]);
+            ax.points(
+                &dat_x,
+                &dat_y,
+                &[
+                    // Caption("center"),
+                    Color(colors[i]),
+                ],
+            );
         }
-        ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
+        // ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
     }
     fig.set_terminal("png", "res.png");
     let _ = fig.show();
