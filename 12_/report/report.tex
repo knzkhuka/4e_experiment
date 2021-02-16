@@ -320,10 +320,67 @@ $O(N)$個の辺のみで最小全域木を構成することが出来る。
 
 \subsection{多次元データの分類}
 
+最短距離法によって分類した結果、以下のようになった。
+正しい解との差は、2つだった。
 
+\begin{verbatim}
+  cluster 0:
+  bass, carp, catfish, chub, dogfish, haddock, herring, pike, piranha, seahorse, sole, stingray, tuna
+  cluster 1:
+  aardvark, antelope, bear, boar, buffalo, calf, cavy, cheetah, deer, dolphin, elephant, fruitbat, giraffe, girl, goat, gorilla, hamster, hare, leopard, lion, lynx, mink, mole, mongoose, opossum, oryx, platypus, polecat, pony, porpoise, puma, pussycat, raccoon, reindeer, seal, sealion, squirrel, vampire, vole, wallaby, wolf
+  cluster 2:
+  chicken, crow, dove, duck, flamingo, gull, hawk, kiwi, lark, ostrich, parakeet, penguin, pheasant, rhea, skimmer, skua, sparrow, swan, vulture, wren
+  cluster 3:
+  clam, crab, crayfish, flea, gnat, honeybee, housefly, ladybird, lobster, moth, octopus, seawasp, slug, starfish, termite, wasp, worm
+  cluster 4:
+  frog, frog, newt, pitviper, slowworm, toad, tortoise, tuatara
+  cluster 5:
+  scorpion
+  cluster 6:
+  seasnake
+\end{verbatim}
 
 \subsection{画像データの分類}
 
+画像の分類の結果は、
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/ic1.png}
+    \end{center}
+    \caption{クラスタ1}
+    \label{fig:ic1}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/ic2.png}
+    \end{center}
+    \caption{クラスタ2}
+    \label{fig:ic2}
+  \end{minipage}
+\end{figure}
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/ic3.png}
+    \end{center}
+    \caption{クラスタ3}
+    \label{fig:ic3}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/ic4.png}
+    \end{center}
+    \caption{クラスタ4}
+    \label{fig:ic4}
+  \end{minipage}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\hsize]{./pic/ic5.png}
+  \caption{クラスタ5}
+  \label{fig:ic5}
+\end{figure}
 
 \section{まとめ}
 
