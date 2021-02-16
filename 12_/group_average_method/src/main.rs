@@ -34,7 +34,7 @@ fn main() {
         println!("error running example: {}", err);
         process::exit(1);
     }
-    let m = 9;
+    let m = 4;
     let cluster_set = group_average_method(data, m);
     let center = calc_center(&cluster_set, m);
     let colors = ["red", "blue", "green", "black", "orange"];
@@ -53,7 +53,7 @@ fn main() {
                 &dat_x,
                 &dat_y,
                 &[
-                    // Caption(&i.to_string()),
+                    Caption(&i.to_string()),
                     Color(colors[i]),
                 ],
             );
@@ -71,12 +71,12 @@ fn main() {
                 &dat_x,
                 &dat_y,
                 &[
-                    // Caption("center"),
+                    Caption("center"),
                     Color(colors[i]),
                 ],
             );
         }
-        // ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
+        ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
     }
     fig.set_terminal("png", "res.png");
     let _ = fig.show();
