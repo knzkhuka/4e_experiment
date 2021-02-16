@@ -91,6 +91,7 @@ K-means法とはデータ数をn、クラスタ数をkとして、
 
 \subsection{二次元データの分類}
 
+\subsubsection{最短距離法}
 二次元データ間の距離をユークリッド距離
 $d = \sqrt{x^2 + y^2}$
 で定義する。
@@ -110,59 +111,142 @@ $d = \sqrt{x^2 + y^2}$
 最初はN個の木(森)が存在し、このアルゴリズムが終了したときは1つの木だけが残っている。
 この手順の途中で木の数がkになったときにアルゴリズムを終了すると、
 k個のクラスタに分類することが出来ている。
+クラスタの表現にはUnion Findというデータ構造を使用する。
 これを実装したものをソースコード\ref{code:rust_emst}に示す。
 
-
 \begin{lstlisting}[caption=Rustによる最短距離法の実装,label=code:rust_emst]
-  fn main() {
-    let mut data: Vec<Point> = Vec::new();
-    if let Err(err) = read(&mut data) {
-      println!("error running example: {}", err);
-      process::exit(1);
-    }
-    let n: usize = data.len();
+fn min_dist_method(data: &Vec<Point>, m: usize) -> Vec<usize> {
+    let n = data.len();
     let mut edges: Vec<(f64, usize, usize)> = Vec::new();
     for i in 0..n {
-      for j in i..n {
-        edges.push((calc_dist(&data[i], &data[j]), i, j));
-      }
+        for j in i + 1..n {
+            edges.push((calc_dist(data[i], data[j]), i, j));
+        }
     }
     edges.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    let m = 2;
     let mut uni = Unionfind::new(n);
-    for (_, u, v) in edges {
-      if uni.tree_count == m {
-        break;
-      }
-      uni.unite(u, v);
-    }
-    let r_st = uni.root_set();
-    let clusters: Vec<Vec<usize>> = r_st.into_iter().map(|r| uni.group(r)).collect::<Vec<Vec<_>>>();
-    let colors = ["red", "blue", "green", "black"];
-    let mut fg = Figure::new();
-    {
-      let x = fg.axes2d();
-      for i in 0..m {
-        let mut dat_x: Vec<f64> = Vec::new();
-        let mut dat_y: Vec<f64> = Vec::new();
-        for &j in &clusters[i] {
-          dat_x.push(data[j].x);
-          dat_y.push(data[j].y);
+    for (_, i, j) in edges {
+        if uni.tree_count == m {
+            break;
         }
-        x.points(&dat_x, &dat_y, &[Color(colors[i % 4])]);
-      }
+        uni.unite(i, j);
     }
-    fg.show();
-  }
+    let mut cluster = (0..n).into_iter().map(|i| uni.root(i)).collect::<Vec<usize>>();
+    cluster = compression(cluster);
+    cluster
+}
 \end{lstlisting}
+
+\subsubsection{群平均法}
+
+群平均法ではクラスタ$c_a$と$c_b$の距離を
+$c_a$の大きさ(所属しているデータの数)をN、$c_b$の大きさをMとして、
+$\frac{1}{NM} \sum_{i=1}^{N} \sum_{j=1}^{M} d(c_{a_i},c_{b_j})$
+として計算する。ここで、$d(p_i,p_j)$はデータ間の距離を計算する関数である。
+こうして計算された距離の中で最小のものを併合していく。
+
+クラスタはデータの追加が出来る集合とそれを管理する削除が出来る集合が必要であるため、
+HashMapでVecを管理する。
+
+\begin{lstlisting}[caption=群平均法の実装,label=code:rust_gam]
+fn group_average_method(data: Vec<Point>, m: usize) -> HashMap<usize, Vec<Point>> {
+    let mut cluster: HashMap<usize, Vec<Point>> = HashMap::new();
+    let n = data.len();
+    for i in 0..n {
+        let vi = vec![data[i]];
+        cluster.insert(i, vi);
+    }
+    let mut indexes = (0..n).into_iter().collect::<Vec<_>>();
+    while cluster.len() > m {
+        let (mut mi, mut mj) = (0, 0);
+        let mut mdist = 1e10;
+        for i in &indexes {
+            for j in &indexes {
+                if i < j {
+                    let dist = calc_dist_average(&cluster[&i], &cluster[&j]);
+                    if mdist > dist {
+                        mdist = dist;
+                        mi = *i;
+                        mj = *j;
+                    }
+                }
+            }
+        }
+        let mut clst_j = cluster.remove(&mj).unwrap();
+        cluster.get_mut(&mi).unwrap().append(&mut clst_j);
+        let rmidx = indexes.iter().position(|x| *x == mj).unwrap();
+        indexes.remove(rmidx);
+    }
+    cluster
+}
+fn calc_dist_average(a: &Vec<Point>, b: &Vec<Point>) -> f64 {
+    let mut sum_d: f64 = 0.;
+    for ai in a {
+        for bj in b {
+            sum_d += calc_dist_point(*ai, *bj);
+        }
+    }
+    sum_d / ((a.len() * b.len()) as f64)
+}
+\end{lstlisting}
+
+\subsubsection{k-means法}
+
+k-means法は初期状態によって結果が偏ってしまうことがあるので
+複数回実行して分散の値が小さいものを結果が良かった
+ものとして採択する。
+分散の値は、各クラスタについて重心とのユークリッド距離で計算する。
+重心の座標は次元ごとに平均をとったものとする。
+その座標との距離の平均を$d_{mean}$とし、
+各クラスタについて
+$\sum_{i=1}^{N} (d(center,p_i)-d_{mean})^2$
+を計算し、その値の平均値を分散とした。
+
+\begin{lstlisting}[caption=k-means法の実装,label=code:kmeans]
+fn k_means(data: &Vec<Point>, m: usize) -> (Vec<Vec<Point>>, Vec<usize>) {
+    let n = data.len();
+    let mut rng = rand::thread_rng();
+    let mut cluster = (0..n).into_iter().map(|_| rng.gen_range(0..m)).collect::<Vec<_>>();
+    let mut center = calc_center(&data, &cluster, m);
+    loop {
+        let mut new_cluser = vec![0; n];
+        for i in 0..n {
+            let mut d_min = 1e10;
+            for j in 0..m {
+                let d_cur = calc_dist(data[i], center[j]);
+                new_cluser[i] = if d_min > d_cur {
+                    d_min = d_cur;
+                    j
+                } else {
+                    new_cluser[i]
+                };
+            }
+        }
+        if cluster == new_cluser {
+            break;
+        }
+        cluster = new_cluser;
+        center = calc_center(&data, &cluster, m);
+    }
+    let mut cluster_set: Vec<Vec<Point>> = vec![Vec::new(); m];
+    for i in 0..n {
+        cluster_set[cluster[i]].push(data[i]);
+    }
+    (cluster_set, cluster)
+}
+\end{lstlisting}
+
 
 \subsection{多次元データの分類}
 
 二次元データの分類の時と同様にクラスカル法を実行することで
-最小距離法での分類を行う。
+最短距離法での分類を行う。
 このときn次元データaとbの間の距離は
 $\displaystyle d_{ab} = \sqrt{ \sum_{i=1}^{n}w_i(a_i - b_i)^2 }$
 として計算した。ここで$w_i$は各系列に対する重みである。
+ここで重みはランダムに決定し何度か実行し、
+正解との差が小さいものを探した。
+
 
 \subsection{画像データの分類}
 
@@ -191,6 +275,47 @@ $\displaystyle d_{ab} = \sqrt{ \sum_{i=1}^{n}w_i(a_i - b_i)^2 }$
 
 \subsection{二次元データの分類}
 
+最短距離法、群平均法、k-means法のそれぞれでクラスタ4つ、
+分散200のデータセットをクラスタリングした結果を
+図\ref{fig:mdm_m4sd200}、\ref{fig:gam_m4sd200}、\ref{fig:km_m4sd200}に示す。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/mdm/m4sd200_plot.png}
+    \end{center}
+    \caption{最短距離法によるクラスタリング}
+    \label{fig:mdm_m4sd200}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \begin{center}
+      \includegraphics[width=1.0\hsize]{./pic/gam/m4sd200_plot.png}
+    \end{center}
+    \caption{群平均法によるクラスタリング}
+    \label{fig:gam_m4sd200}
+  \end{minipage}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\hsize]{./pic/k_means/m4sd200_plot.png}
+  \caption{k-means法によるクラスタリング}
+  \label{fig:km_m4sd200}
+\end{figure}
+
+
+最短距離法によるクラスタリングでは、クラスタ1,2,3が1つの点からなる
+クラスタになってしまっている。
+これは、鎖効果が起こってしまったっためだと考えられる。
+群平均法ではこれが改善され、k-means法ではさらに改善されて均等な
+4つのクラスタに分類できていることがわかる。
+
+最短距離法によるクラスタリングは図\ref{fig:mdm_m4sd200}のように
+鎖効果が起こってしまうデメリットがあるが
+最小全域木を構築する問題に帰着でき、
+N個の点が与えられるとき
+$O(Nlog(N))$と非常に高速に解くことが出来る。
+具体的にはドロネーの三角形分割によって生成される
+$O(N)$個の辺のみで最小全域木を構成することが出来る。
 
 
 \subsection{多次元データの分類}
@@ -200,9 +325,11 @@ $\displaystyle d_{ab} = \sqrt{ \sum_{i=1}^{n}w_i(a_i - b_i)^2 }$
 \subsection{画像データの分類}
 
 
+\section{まとめ}
 
+\newpage
 \begin{thebibliography}{10}
-  \bibitem{1}　クラスター分析の手法②（階層クラスター分析）
+  \bibitem{1}　クラスター分析の手法2（階層クラスター分析）
 
   \url{https://www.albert2005.co.jp/knowledge/data_mining/cluster/hierarchical_clustering}
 
