@@ -7,16 +7,16 @@ fn main() {
         println!("error running example: {}", err);
         process::exit(1);
     }
-    let m = 2;
+    let m = 4;
     let cluster = min_dist_method(&data, m);
     let cluster_set = construst_clusterset(&data, &cluster, m);
-    savefig(&cluster_set, "plot".to_string());
+    savefig(&cluster_set, "res".to_string());
 }
 
 fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
     let m = cluster_set.len();
     let mut fig = Figure::new();
-    let colors = ["red", "blue", "orange", "green", "black"];
+    let _colors = ["red", "blue", "orange", "green", "black"];
     {
         let ax = fig.axes2d();
         for i in 0..m {
@@ -32,9 +32,11 @@ fn savefig(cluster_set: &Vec<Vec<Point>>, filename: String) {
             ax.points(
                 &dat_x,
                 &dat_y,
-                &[Caption(&i.to_string()), Color(colors[i % colors.len()])],
+                &[
+                    Caption(&i.to_string()), //Color(colors[i % colors.len()])
+                ],
             );
-            ax.set_legend(Graph(0.9), Graph(0.3), &[], &[]);
+            ax.set_legend(Graph(1.), Graph(0.3), &[], &[]);
         }
         let mut dat_x = Vec::new();
         let mut dat_y = Vec::new();
